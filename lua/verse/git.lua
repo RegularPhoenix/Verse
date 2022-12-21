@@ -27,7 +27,7 @@ end
 local function safe_deep_fetch()
   local ret, result, error = execute_git { args = { "rev-parse", "--is-shallow-repository" } }
   if ret ~= 0 then
-    Log:error(vim.inspect(error))
+    print(error(vim.inspect(error)))
     return
   end
 
@@ -35,14 +35,14 @@ local function safe_deep_fetch()
   local fetch_mode = result[1] == "true" and "--unshallow" or "--all"
   ret = execute_git { args = { "fetch", fetch_mode } }
   if ret ~= 0 then
-    Log:error(fmt "Git fetch %s failed! Please pull the changes manually in %s", fetch_mode, vim.fn.stdpath "config")
+    print(error(fmt "Git fetch %s failed! Please pull the changes manually in %s", fetch_mode, vim.fn.stdpath "config"))
     return
   end
 
   if fetch_mode == "--unshallow" then
     ret = execute_git { args = { "remote", "set-branches", "origin", "*" } }
     if ret ~= 0 then
-      Log:error(fmt "Git fetch %s failed! Please pull the changes manually in %s", fetch_mode, vim.fn.stdpath "config")
+      print(error(fmt "Git fetch %s failed! Please pull the changes manually in %s", fetch_mode, vim.fn.stdpath "config"))
       return
     end
   end
@@ -61,13 +61,13 @@ function M.update_verse()
 
   ret = execute_git { args = { "diff", "--quiet", "@{upstream}" } }
   if ret == 0 then
-    Log:info "You already have the last version of Verse"
+    print "You already have the last version of Verse"
     return
   end
 
   ret = execute_git { args = { "merge", "--ff-only", "--progress" } }
   if ret ~= 0 then
-    Log:error("Update failed! Please pull the changes manually in " .. vim.fn.stdpath "config")
+    print("Update failed! Please pull the changes manually in " .. vim.fn.stdpath "config")
     return
   end
 
