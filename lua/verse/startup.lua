@@ -42,11 +42,13 @@ return require('packer').startup(function(use)
 	use 'sainnhe/gruvbox-material'
 	use 'sainnhe/everforest'
 	use 'glepnir/zephyr-nvim'
+	use 'liuchengxu/space-vim-dark'
 	-- Mimic themes
 	use 'ofirgall/ofirkai.nvim' -- sublime
 	use 'doums/darcula' -- pycharm
 	use 'tomasiser/vim-code-dark' -- vs
 	use 'rafamadriz/neon' -- kate
+	use 'ful1e5/onedark.nvim' -- atom
 
 
 	-- Dashboard

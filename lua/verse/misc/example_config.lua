@@ -1,5 +1,9 @@
 My = {}
 
+-- aperture, apex, mimic, mimic-atom, mimic-kate, mimic-pycharm, mimic-sublime, mimic-vs
+My.theme = "mimic"
+
+
 -- Example vim options
 function My:main_options()
   vim.o.autoindent = true
@@ -16,11 +20,12 @@ function My:autocmds()
 	augroup Vimspector
 		autocmd!
 		au VimEnter * :COQnow -s
-		au VimEnter * :colorscheme gruvbox-material
     augroup END
   ]]
 end
 
+
+-- Example keybinds
 function My:keybinds()
   nnoremap("<F1>", ":Dashboard<CR>", "silent")
   nnoremap("<F2>", ":NvimTreeToggle<CR>", "silent")
