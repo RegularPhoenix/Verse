@@ -1,0 +1,35 @@
+a = {
+	"                         ....                         ",
+	"                        .oKKo.                        ",
+	"                       'kNWWNk'                       ",
+	"                      :0WWWWWW0;                      ",
+	"                    .oXWWWWWWWWXl.                    ",
+	"                   'xNWWWWWWWWWWNx'                   ",
+	"                  ;0WWWWWWWWWWWWWW0;                  ",
+	"                .lXWWWWWWWWWWWWWWNNXl.                ",
+	"               .xNWWWWWWWWWWWWWKoxXWNx.               ",
+	"              ,OWWWWWWWWWWWWXk:.'OWWWWO,              ",
+	"            .cKWWWWWWWWWW0oc,. .xWWWWWWKc.            ",
+	"           .dNWWWWWWWWXkc.     lNWWWWWWWNd.           ",
+	"          ,OWWWWWWWNKo,        ,dKWWWWWWWWO,          ",
+	"        .cKWWWWWWXk:.            .ckXWWWWWWK:         ",
+	"       .oXWWWWN0o'.                 'o0NWWWWXo.       ",
+	"      'kNWWWKx;.                      .;xKWWWNk'      ",
+	"     :0WWNkc.                            .cONWW0;     ",
+	"   .oXN0o,.                                .,dKWXo.   ",
+	"  'xKx:.      d8888                           .:xKx'  ",
+	" ,ol'        d88888                              'lo, ",
+	".'.         d88P888                                .'.",
+	"           d88P 888 88888b.   .d88b.  888  888        ",
+	"          d88P  888 888 '88b d8P  Y8b `Y8bd8P'        ",
+	"         d88P   888 888  888 88888888   X88K          ",
+	"        d8888888888 888 d88P Y8b.     .d8''8b.        ",
+	"       d88P     888 88888P'   'Y8888  888  888        ",
+	"                    888                               ",
+	"                    888                               ",
+	"                    888                               ",
+}
+
+vim.cmd([[colorscheme tokyonight-night]])
+
+return a
