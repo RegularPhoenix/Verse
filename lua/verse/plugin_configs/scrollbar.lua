@@ -1,13 +1,19 @@
-local colours = require('catppuccin.palettes').get_palette()
+local M = {}
 
-local cfg = {
-	handle = {
-		color = colours.crust,
-	},
-	handlers = {
-		search = true,
-	},
-}
+function M.load()
+	local colours = require('catppuccin.palettes').get_palette()
+	
+	local cfg = {
+		handle = {
+			color = colours.crust,
+		},
+		handlers = {
+			search = true,
+		},
+	}
+	
+	require('scrollbar').setup(cfg)
+	require('scrollbar.handlers.search').setup()
+end
 
-require('scrollbar').setup(cfg)
-require('scrollbar.handlers.search').setup()
+return M

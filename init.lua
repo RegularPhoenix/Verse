@@ -6,7 +6,7 @@ if vim.fn.has "nvim-0.8" ~= 1 then
   vim.cmd "cquit"
 end
 
-require("verse.startup")
+require("verse.startup").load()
 
 require("verse.config")
 

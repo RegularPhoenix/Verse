@@ -1,7 +1,10 @@
-local present, toggleterm = pcall(require, "toggleterm")
-if not present then return end
+local M = {}
 
-toggleterm.setup{
-	open_mapping = [[<F4>]],
-	direction = 'float',
-}
+function M.load()
+	require("toggleterm").setup{
+		open_mapping = [[<F4>]],
+		direction = 'float',
+	}
+end
+
+return M
