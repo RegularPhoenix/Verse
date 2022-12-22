@@ -1,5 +1,11 @@
-require("verse.misc.default_config")
+require("verse.misc.default_config"):main_options()
+require("verse.misc.default_config"):autocmds()
 
+require("mapx").setup({
+      global = true,
+})
+
+require("verse.misc.default_config"):keybinds()
 
 local vl = vim.loop
 local fn = vim.fn
@@ -22,17 +28,22 @@ local user_config_exists = check_user_config()
 
 
 if user_config_exists then
-  require("user_config"):main_options()
-  require("user_config"):autocmds()
+  local config = require("user_config")
 
-  require("mapx").setup({
-	global = true,
-  })
+  if config.main_options ~= nil then
+    config.main_options()
+  end
+
+  if config.autocmds ~= nil then
+    config.autocmds()
+  end
 
   vim.schedule(function()
     if package.loaded["mapx"] then
-      require("user_config"):keybinds()
-    end 
+      if config.keybinds ~= nil then
+        config.keybinds()
+      end
+    end
   end)
 else
   print "User config not found, creating an example..."

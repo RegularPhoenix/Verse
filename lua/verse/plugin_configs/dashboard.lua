@@ -11,7 +11,7 @@ db.custom_center = {
 		icon = '>  ',
 		desc = 'Recently opened files                   ',
 		action =  'Telescope oldfiles',
-		shortcut = 'SPC f h',
+		shortcut = 'SPC f n',
 	},
 
 	{
@@ -43,6 +43,7 @@ db.custom_center = {
 	},
 }
 db.custom_footer = {
+	'',
 	'Detected ' .. #vim.tbl_keys(packer_plugins) .. ' plugins',
-	'I am text'
+	'Neovim 0.8.1 | Verse 0.2.2.0 -- Mimic'
 }

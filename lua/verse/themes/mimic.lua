@@ -24,9 +24,11 @@
 '⡢⢷⢣⠄⠀⠈⠀⠀⠀⠮⢾⢳⠄⠀⠀⠀⠀⠀⠐⢽⠳⡃⠁⠀⠀⠀⠠⠹⠑⠀⠀⠀⢜⠎⠂⠀⠀⠐⢺⢻⠊⠊⠀⠀⠀⠀⠈⢯⢞⠎⠂⠀⠈⠚⡽⡳⡳⠣⠁⠀⠀',
 '',
 '',
-'',
 }
 
 vim.cmd([[colorscheme space-vim-dark]])
+vim.cmd([[hi link DashboardHeader @function]])
+vim.cmd([[hi link DashboardCenter @string]])
+vim.cmd([[hi link DashboardFooter @keyword]])
 
 return a
