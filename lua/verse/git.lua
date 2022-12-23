@@ -80,4 +80,46 @@ function M.update_verse()
   vim.notify("Verse updated successfully!", vim.log.levels.INFO)
 end
 
+
+local function get_latest_verse_tag()
+  local args = { "describe", "--tags", "--abbrev=0" }
+
+  local _, results = execute_git { args = args }
+  local tag = vim.F.if_nil(results[1], "")
+  return tag
+end
+
+
+local function get_base_verse_tag()
+  local args = { "describe", "--abbrev=0" }
+
+  local _, results = execute_git { args = args }
+  local tag = vim.F.if_nil(results[1], "")
+  return tag
+end
+
+
+local release_names_table = {
+  ['0.1'] = "Apex",
+  ['0.2'] = "Mimic",
+}
+
+local function get_verse_release_name()
+  local base_tag = get_base_verse_tag()
+  return release_names_table[base_tag]
+end
+
+
+function M.get_verse_full_release_name()
+  local full_tag = get_latest_verse_tag()
+  local name = get_verse_release_name()
+  local _, count = string.gsub(full_tag, "%.", "")
+
+  if count ~= 3 then
+    return "Verse " .. full_tag .. string.rep(".0", 3 - count) .. " -- " .. name
+  else
+    return "Verse " .. full_tag .. " -- " .. name
+  end
+end
+
 return M

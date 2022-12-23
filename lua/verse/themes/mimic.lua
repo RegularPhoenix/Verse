@@ -68,7 +68,7 @@ Mimic.center = {
 Mimic.footer = {
   '',
   'Detected ' .. #vim.tbl_keys(packer_plugins) .. ' plugins',
-  'Neovim 0.8.1 | Verse 0.2.3.0 -- Mimic'
+  'Neovim 0.8.1 | ' .. require("verse.git").get_verse_full_release_name()
 }
 
 function Mimic.opts()
