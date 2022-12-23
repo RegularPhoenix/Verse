@@ -1,9 +1,12 @@
 require("verse.misc.default_config"):main_options()
 require("verse.misc.default_config"):autocmds()
 
-require("mapx").setup({
-      global = true,
-})
+result, mapx = pcall(require, "mapx")
+if result then
+  mapx.setup({
+    global = true,
+  })
+end
 
 require("verse.misc.default_config"):keybinds()
 
@@ -25,7 +28,6 @@ end
 
 
 local user_config_exists = check_user_config()
-
 
 if user_config_exists then
   local config = require("user_config")

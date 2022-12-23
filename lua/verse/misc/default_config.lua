@@ -57,7 +57,7 @@ end
 -- Default autocmds
 function Default:autocmds()
   vim.cmd [[
-    augroup Vimspector
+    augroup VerseDefaults
       autocmd!
       au BufReadPre * :COQnow -s
     augroup END
