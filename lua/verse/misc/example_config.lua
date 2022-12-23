@@ -1,7 +1,7 @@
 My = {}
 
 -- aperture, apex, mimic, mimic-atom, mimic-kate, mimic-pycharm, mimic-sublime, mimic-vs
-My.theme = "mimic"
+--My.theme = "mimic"
 
 
 -- Example vim options
