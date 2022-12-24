@@ -102,6 +102,7 @@ end
 local release_names_table = {
   ['0.1'] = "Apex",
   ['0.2'] = "Mimic",
+  ['0.3'] = "Snowglobe",
 }
 
 local function get_verse_release_name()

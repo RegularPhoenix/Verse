@@ -3,6 +3,10 @@ local M = {}
 
 -- Plugins
 function M.load()
+  local done, impatient = pcall(require, "impatient")
+
+  if done then impatient.enable_profile() end
+
   local fn = vim.fn
   local separator = vim.loop.os_uname().version:match "Windows" and "\\" or "/"
   local install_path = table.concat({vim.fn.stdpath("data"), "site", "pack", "packer", "start", "packer.nvim"}, separator)
@@ -63,7 +67,11 @@ function M.load()
     -- Tabs
     use {
       'romgrk/barbar.nvim',
-      wants = "nvim-tree/nvim-web-devicons",
+      requires = "nvim-tree/nvim-web-devicons",
+      config = function() require('bufferline').setup {
+        icon_pinned = '',
+        icon_close_tab_modified = '',
+      } end,
     }
 
 
@@ -154,15 +162,15 @@ function M.load()
 
     -- Statusline
     use {
-      'nvim-lualine/lualine.nvim',
-      config = require('verse.plugin_configs.lualine').load,
+      'windwp/windline.nvim',
+      config = require('verse.plugin_configs.windline').load,
     }
 
 
     -- Colour codes
     use {
-      'NvChad/nvim-colorizer.lua',
-      config = function() require('colorizer').setup() end,
+      'uga-rosa/ccc.nvim',
+      config = require('verse.plugin_configs.ccc').load,
     }
 
 
@@ -187,8 +195,7 @@ function M.load()
       config = function() require('trouble').setup{
         mode = 'quickfix',
         auto_open = 'true',
-      }
-      end,
+      } end,
     }
 
 
@@ -202,6 +209,82 @@ function M.load()
     -- Nvim plugin development
     use 'folke/neodev.nvim'
     use 'folke/neoconf.nvim'
+
+
+    -- Autoclose brackets
+    use {
+      "windwp/nvim-autopairs",
+      config = function() require("nvim-autopairs").setup() end
+    }
+
+
+    -- Dim inactive windows
+    use {
+      'levouh/tint.nvim',
+      config = function() require('tint').setup() end,
+    }
+
+
+    -- Highlight ranges
+    use {
+      'winston0410/range-highlight.nvim',
+      requires = 'winston0410/cmd-parser.nvim',
+      config = function() require('range-highlight').setup() end,
+    }
+
+
+    -- Tranparent neovim
+    use {
+      'xiyaowong/nvim-transparent',
+      config = function() require("transparent").setup {
+        enable = false,
+      } end,
+    }
+
+
+    -- Dim inactive code
+    use {
+      "folke/twilight.nvim",
+      config = function() require("twilight").setup {
+        expand = {
+          "function",
+          "method",
+          "table",
+          "if_statement",
+          "method_definition",
+          "method_declaration",
+          "function_declaration"
+        }
+      } end,
+    }
+
+
+    -- Icon picker
+    use "stevearc/dressing.nvim"
+    use {
+      "ziontee113/icon-picker.nvim",
+      config = function() require("icon-picker").setup {
+          disable_legacy_commands = true
+      } end,
+    }
+
+
+    -- Discord rich presence
+    use {
+      'andweeb/presence.nvim',
+      config = require("verse.plugin_configs.presence").load
+    }
+
+    
+    -- Tag system
+    use "cbochs/grapple.nvim"
+
+
+    -- Better marks
+    use {
+      'chentoast/marks.nvim',
+      config = require"marks".setup()
+    }
 
 
     -- Bootstrap

@@ -4,6 +4,9 @@ My = {}
 --My.theme = "mimic"
 
 
+-- bubble, bubble2, evil_line, airline, airline_anim, vscode, basic, wind, airline_luffy
+--Default.statusline = "bubble"
+
 -- Example vim options
 function My:main_options()
   --vim.o.expandtab = false

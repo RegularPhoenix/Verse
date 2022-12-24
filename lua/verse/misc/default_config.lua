@@ -1,9 +1,5 @@
 Default = {}
 
--- aperture, apex, mimic, mimic-atom, mimic-kate, mimic-pycharm, mimic-sublime, mimic-vs
-Default.theme = "mimic"
-
-
 -- Default vim options
 function Default:main_options()
   vim.cmd([[syntax off]])
@@ -60,6 +56,8 @@ function Default:autocmds()
     augroup VerseDefaults
       autocmd!
       au BufReadPre * :COQnow -s
+      au BufWritePost startup.lua PackerCompile
+      au BufWritePost startup.lua source <afile> | PackerCompile
     augroup END
   ]]
 end
@@ -75,6 +73,8 @@ function Default:keybinds()
   local yabs = require("yabs")
   nnoremap("<F5>", function() yabs:run_task("run") end, "silent")
   nnoremap("<F6>", function() yabs:run_task("build_and_run") end, "silent")
+
+  nnoremap("<leader>t", ":Twilight<CR>", "silent")
 
   -- Easier window switch
   nmap("<C-H>", "<C-w>h")
@@ -98,7 +98,7 @@ function Default:keybinds()
   nnoremap("<leader>l", ":BufferNext<CR>", "silent")
   nnoremap("<leader>h", ":BufferPrevious<CR>", "silent")
   nnoremap("<leader>pp", ":BufferPick<CR>", "silent")
-  nnoremap("<leader>p", ":BufferPin<CR>", "silent")
+  nnoremap("<leader>pn", ":BufferPin<CR>", "silent")
   nnoremap("<leader>c", ":BufferClose<CR>", "silent")
   nnoremap("<leader>>", ":BufferMoveNext<CR>", "silent")
   nnoremap("<leader><", ":BufferMovePrevious<CR>", "silent")

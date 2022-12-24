@@ -17,19 +17,10 @@ local separator = vl.os_uname().version:match "Windows" and "\\" or "/"
 local file_path = table.concat({vim.fn.stdpath("config"), "lua", "user_config.lua"}, separator)
 local example_path = table.concat({vim.fn.stdpath("config"), "lua", "verse", "misc", "example_config.lua"}, separator)
 
-
-local check_user_config = function()
-  local config = vl.fs_stat(file_path)
-  if not config or config.type ~= "file" then
-    return false
-  end
-  return true
-end
-
-
-local user_config_exists = check_user_config()
-
-if user_config_exists then
+if fn.empty(fn.glob(file_path)) > 0 then
+  print "User config not found, creating an example..."
+  vl.fs_copyfile(example_path, file_path)
+else
   local config = require("user_config")
 
   if config.main_options ~= nil then
@@ -47,7 +38,4 @@ if user_config_exists then
       end
     end
   end)
-else
-  print "User config not found, creating an example..."
-  vl.fs_copyfile(example_path, file_path)
 end
