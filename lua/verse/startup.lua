@@ -283,7 +283,7 @@ function M.load()
     -- Better marks
     use {
       'chentoast/marks.nvim',
-      config = require"marks".setup()
+      config = function() require("marks").setup() end,
     }
 
 
