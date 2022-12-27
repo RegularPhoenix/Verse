@@ -10,7 +10,7 @@ function M.load()
   if fn.empty(fn.glob(file_path)) <= 0 then
     user_theme = require("user_config").theme
     if user_theme == nil then
-      user_theme = "verse.themes.mimic"
+      user_theme = "verse.themes." .. require("verse.git").get_verse_release_name():lower()
     else
       user_theme = "verse.themes." .. user_theme
     end

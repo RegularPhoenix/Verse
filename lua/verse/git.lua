@@ -93,13 +93,20 @@ local function get_base_verse_tag()
 end
 
 
+local function get_version_commit_count()
+  local _, last_tag_commit = execute_git { args = { "rev-list", "-n", "1", get_latest_verse_tag() } }
+  local _, total = execute_git { args = { "rev-list", "--count", "--all" } }
+  local _, up_to_last_tag = execute_git { args = { "rev-list", "--count", last_tag_commit[1] } }
+  return total[1] - up_to_last_tag[1]
+end
+
 local release_names_table = {
   ['0.1'] = "Apex",
   ['0.2'] = "Mimic",
   ['0.3'] = "Snowglobe",
 }
 
-local function get_verse_release_name()
+function M.get_verse_release_name()
   local base_tag = get_base_verse_tag()
   return release_names_table[base_tag]
 end
@@ -107,13 +114,14 @@ end
 
 function M.get_verse_full_release_name()
   local full_tag = get_latest_verse_tag()
-  local name = get_verse_release_name()
+  local name = M.get_verse_release_name()
+  local commit_count = get_version_commit_count()
   local _, count = string.gsub(full_tag, "%.", "")
 
-  if count ~= 3 then
-    return "Verse " .. full_tag .. string.rep(".0", 3 - count) .. " -- " .. name
+  if count == 1 then
+    return "Verse " .. full_tag .. ".0." .. commit_count .. " -- " .. name
   else
-    return "Verse " .. full_tag .. " -- " .. name
+    return "Verse " .. full_tag .. "." .. commit_count .. " -- " .. name
   end
 end
 
