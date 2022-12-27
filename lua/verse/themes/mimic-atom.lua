@@ -42,35 +42,35 @@ Atom.center = {
     icon = '•  ',
     desc = 'Recently opened files                   ',
     action =  'Telescope oldfiles',
-    shortcut = 'SPC f n',
+    shortcut = 'SPACE F O',
   },
 
   {
     icon = '•  ',
     desc = 'Browse files                            ',
     action = 'Telescope find_files',
-    shortcut = 'SPC f f'
+    shortcut = 'SPACE F F'
   },
 
   {
     icon = '•  ',
     desc = 'New file                                ',
-    shortcut = 'SPC c n',
+    shortcut = 'SPACE F N',
     action = 'DashboardNewFile',
   },
 
   {
     icon = '•  ',
     desc = 'Change terminal color                   ',
-    shortcut = 'SPC t c',
+    shortcut = 'SPACE T C',
     action = 'Telescope colorscheme',
   },
 
   {
     icon = '•  ',
-    desc = 'Exit                                    ',
-    action = 'q',
-    shortcut = 'SPC f w',
+    desc = 'Terminate current session               ',
+    action = 'qa!',
+    shortcut = 'SPACE Q A',
   },
 }
 

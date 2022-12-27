@@ -1,13 +1,10 @@
-require("verse.misc.default_config"):main_options()
-require("verse.misc.default_config"):autocmds()
-
-result, mapx = pcall(require, "mapx")
-if result then
-  mapx.setup({
-    global = true,
-  })
+local exists, notify = pcall(require, "notify")
+if exists then
+  vim.notify = notify
 end
 
+require("verse.misc.default_config"):main_options()
+require("verse.misc.default_config"):autocmds()
 require("verse.misc.default_config"):keybinds()
 
 local vl = vim.loop
@@ -31,11 +28,9 @@ else
     config.autocmds()
   end
 
-  vim.schedule(function()
-    if package.loaded["mapx"] then
-      if config.keybinds ~= nil then
-        config.keybinds()
-      end
-    end
-  end)
+  local exists, wk = pcall(require, "which-key")
+
+  if config.keybinds ~= nil and exists then
+    wk.register { config.keybinds() }
+  end
 end

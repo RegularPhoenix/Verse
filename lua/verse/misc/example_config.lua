@@ -5,7 +5,12 @@ My = {}
 
 
 -- bubble, bubble2, evil_line, airline, airline_anim, vscode, basic, wind, airline_luffy
---Default.statusline = "bubble"
+--My.statusline = "bubble"
+
+-- Example keybinds
+My:keybinds() = {
+  -- ["<F2>"] = { "<cmd>NvimTreeToggle<cr>", "Toggle file tree" },
+}
 
 -- Example vim options
 function My:main_options()
@@ -22,16 +27,6 @@ function My:autocmds()
   --  	au VimEnter * :COQnow -s
   --  augroup END
   --]]
-end
-
-
--- Example keybinds
-function My:keybinds()
-  --nnoremap("<C-F4>", ':TermExec direction=float cmd="cd %:h"<CR>', "silent")
-  
-  --local yabs = require("yabs")
-  --nnoremap("<F5>", function() yabs:run_task("run") end, "silent")
-  --nnoremap("<F6>", function() yabs:run_task("build_and_run") end, "silent")
 end
 
 return My

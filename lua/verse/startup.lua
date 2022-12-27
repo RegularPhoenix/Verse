@@ -76,8 +76,10 @@ function M.load()
 
 
     -- easier keybinds
-    use 'b0o/mapx.nvim'
-
+    use {
+      "folke/which-key.nvim",
+      config = function() require("which-key").setup() end,
+    }
 
     -- Tree + Icons
     use {
@@ -158,6 +160,13 @@ function M.load()
 
     -- Better quickfix window
     use 'kevinhwang91/nvim-bqf'
+
+
+    -- Git integration
+    use {
+      'lewis6991/gitsigns.nvim',
+      config = function() require('gitsigns').setup() end,
+    }
 
 
     -- Statusline
@@ -275,7 +284,7 @@ function M.load()
       config = require("verse.plugin_configs.presence").load
     }
 
-    
+
     -- Tag system
     use "cbochs/grapple.nvim"
 
@@ -285,6 +294,25 @@ function M.load()
       'chentoast/marks.nvim',
       config = function() require("marks").setup() end,
     }
+
+
+    -- Open links
+    use 'xiyaowong/link-visitor.nvim'
+
+
+    -- Best plugin ever
+    use 'rktjmp/shenzhen-solitaire.nvim'
+
+
+    -- TODO comments
+    use {
+      'folke/todo-comments.nvim',
+      config = function() require("todo-comments").setup() end,
+    }
+
+
+    -- Better notifications
+    use 'rcarriga/nvim-notify'
 
 
     -- Bootstrap

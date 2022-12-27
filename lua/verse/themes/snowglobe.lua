@@ -1,6 +1,6 @@
-﻿Aperture = {}
+﻿Snowglobe = {}
 
-Aperture.header = {
+Snowglobe.header = {
   '                      ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⠤⠤⠤⠤⠤⠤⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                   ',
   '                      ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⢎⠩⡁⡂⡂⠅⢅⠂⡈⠄⠅⠄⡂⠌⡉⠱⢢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀                   ',
   '                      ⠀⠀⠀⠀⠀⠀⠀⢀⠤⢊⠅⡑⡐⡡⢂⢊⠔⠑⡀⠄⡂⠌⠄⡡⠐⡐⡀⠅⢂⠈⠕⠤⡀⠀⠀⠀⠀⠀⠀                   ',
@@ -33,51 +33,51 @@ Aperture.header = {
   '',
 }
 
-Aperture.center = {
+Snowglobe.center = {
   {
-    icon = '>  ',
+    icon = '•  ',
     desc = 'Recently opened files                   ',
     action =  'Telescope oldfiles',
-    shortcut = 'SPC f n',
+    shortcut = 'SPACE F O',
   },
 
   {
-    icon = '>  ',
+    icon = '•  ',
     desc = 'Browse files                            ',
     action = 'Telescope find_files',
-    shortcut = 'SPC f f'
+    shortcut = 'SPACE F F'
   },
 
   {
-    icon = '>  ',
+    icon = '•  ',
     desc = 'New file                                ',
-    shortcut = 'SPC c n',
+    shortcut = 'SPACE F N',
     action = 'DashboardNewFile',
   },
 
   {
-    icon = '>  ',
+    icon = '•  ',
     desc = 'Change terminal color                   ',
-    shortcut = 'SPC t c',
+    shortcut = 'SPACE T C',
     action = 'Telescope colorscheme',
   },
 
   {
-    icon = '>  ',
+    icon = '•  ',
     desc = 'Terminate current session               ',
-    action = 'q',
-    shortcut = 'SPC f w',
+    action = 'qa!',
+    shortcut = 'SPACE Q A',
   },
 }
 
-Aperture.footer = {
+Snowglobe.footer = {
   '',
   'Detected ' .. #vim.tbl_keys(packer_plugins) .. ' plugins',
   'Neovim 0.8.1 | ' .. require("verse.git").get_verse_full_release_name()
 }
 
-function Aperture.opts()
+function Snowglobe.opts()
   vim.cmd([[colorscheme catppuccin-frappe]])
 end
 
-return Aperture
+return Snowglobe

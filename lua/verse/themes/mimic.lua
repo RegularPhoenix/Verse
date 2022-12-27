@@ -30,38 +30,38 @@ Mimic.header = {
 
 Mimic.center = {
   {
-    icon = '>  ',
+    icon = '•  ',
     desc = 'Recently opened files                   ',
     action =  'Telescope oldfiles',
-    shortcut = 'SPC f n',
+    shortcut = 'SPACE F O',
   },
 
   {
-    icon = '>  ',
+    icon = '•  ',
     desc = 'Browse files                            ',
     action = 'Telescope find_files',
-    shortcut = 'SPC f f'
+    shortcut = 'SPACE F F'
   },
 
   {
-    icon = '>  ',
+    icon = '•  ',
     desc = 'New file                                ',
-    shortcut = 'SPC c n',
+    shortcut = 'SPACE F N',
     action = 'DashboardNewFile',
   },
 
   {
-    icon = '>  ',
+    icon = '•  ',
     desc = 'Change terminal color                   ',
-    shortcut = 'SPC t c',
+    shortcut = 'SPACE T C',
     action = 'Telescope colorscheme',
   },
 
   {
-    icon = '>  ',
+    icon = '•  ',
     desc = 'Terminate current session               ',
-    action = 'q',
-    shortcut = 'SPC f w',
+    action = 'qa!',
+    shortcut = 'SPACE Q A',
   },
 }
 

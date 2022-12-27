@@ -51,23 +51,23 @@ end
 
 
 function M.update_verse()
-  print "Checking for updates..."
+  vim.notify("Checking for updates...")
 
   if not safe_deep_fetch() then
     return
   end
 
-  local ret
+  local git_result
 
-  ret = execute_git { args = { "diff", "--quiet", "@{upstream}" } }
+  git_result = execute_git { args = { "diff", "--quiet", "@{upstream}" } }
   if ret == 0 then
-    print "You already have the last version of Verse"
+    vim.notify("You already have the last version of Verse", vim.log.levels.INFO)
     return
   end
 
-  ret = execute_git { args = { "merge", "--ff-only", "--progress" } }
+  git_result = execute_git { args = { "merge", "--ff-only", "--progress" } }
   if ret ~= 0 then
-    print("Update failed! Please pull the changes manually in " .. vim.fn.stdpath "config")
+    vim.notify("Update failed! Please pull the changes manually in " .. vim.fn.stdpath "config", vim.log.levels.ERROR)
     return
   end
 
@@ -82,20 +82,14 @@ end
 
 
 local function get_latest_verse_tag()
-  local args = { "describe", "--tags", "--abbrev=0" }
-
-  local _, results = execute_git { args = args }
-  local tag = vim.F.if_nil(results[1], "")
-  return tag
+  local _, results = execute_git { args = { "describe", "--tags", "--abbrev=0" } }
+  return vim.F.if_nil(results[1], "")
 end
 
 
 local function get_base_verse_tag()
-  local args = { "describe", "--abbrev=0" }
-
-  local _, results = execute_git { args = args }
-  local tag = vim.F.if_nil(results[1], "")
-  return tag
+  local _, results = execute_git { args = { "describe", "--abbrev=0" } }
+  return vim.F.if_nil(results[1], "")
 end
 
 
