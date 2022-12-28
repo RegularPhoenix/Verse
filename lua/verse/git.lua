@@ -8,13 +8,12 @@ local function execute_git(opts)
   end
 
   opts = opts or {}
-  opts.cwd = opts.cwd or vim.fn.stdpath "config"
 
   local stderr = {}
   local stdout, ret = plenary_job:new({
     command = "git",
     args = opts.args,
-    cwd = opts.cwd,
+    cwd = vim.fn.stdpath "config",
     on_stderr = function(_, data)
       table.insert(stderr, data)
     end,
@@ -50,20 +49,44 @@ local function safe_deep_fetch()
 end
 
 
-function M.update_verse()
+function M.check_for_updates(args)
+  local silent = args.silent or false
+  local force = args.force or false
+
+  local _, localc = execute_git { args = { "rev-parse", "@" } }
+  local _, remotec = execute_git { args = { "rev-parse", "@{u}" } }
+  local _, basec = execute_git { args = { "merge-base", "@", "@{u}" } }
+
+  if localc[1] == remotec[1] then
+    if not silent then vim.notify("You already have the last version of Verse", vim.log.levels.INFO) end
+    return 0
+  elseif localc[1] == basec[1] then
+    if not silent then vim.notify("Update available!", vim.log.levels.INFO) end
+  elseif remotec[1] == basec[1] then
+    if not silent then vim.notify("Unpushed commits detected. Push them or perform a reset in " .. vim.fn.stdpath "config", vim.log.levels.INFO) end
+    if not force then return 0 end
+  else
+    if not silent then vim.notify("Paths diverged. Manual conflict resolution may be required.", vim.log.levels.WARN) end
+    if not force then return 0 end
+  end
+
+  return 1
+end
+
+
+function M.update_verse(args)
+  local silent = args.silent or true
+  local force = args.force or false
+
   vim.notify("Checking for updates...")
 
   if not safe_deep_fetch() then
     return
   end
+  
+  if M.check_for_updates { silent = silent, force = force } == 0 then return end
 
   local git_result
-
-  git_result = execute_git { args = { "diff", "--quiet", "@{upstream}" } }
-  if ret == 0 then
-    vim.notify("You already have the last version of Verse", vim.log.levels.INFO)
-    return
-  end
 
   git_result = execute_git { args = { "merge", "--ff-only", "--progress" } }
   if ret ~= 0 then
@@ -74,7 +97,7 @@ function M.update_verse()
   vim.schedule(function()
       if package.loaded["nvim-treesitter"] then
         vim.cmd [[ TSUpdateSync ]]
-      end 
+      end
   end)
 
   vim.notify("Verse updated successfully!", vim.log.levels.INFO)

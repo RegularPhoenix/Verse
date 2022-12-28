@@ -2,27 +2,34 @@ M = {}
 
 M.custom_commands = {
   {
-    name = "UpdateVerse",
+    name = "VerseUpdate",
     fn = function()
       require("verse.git"):update_verse()
     end,
   },
 
   {
-    name = "GetVerseVersion",
+    name = "VerseVersion",
     fn = function()
       vim.notify(require("verse.git"):get_verse_full_release_name(), vim.log.levels.INFO)
     end,
   },
 
   {
-    name = "EditVerseConfig",
+    name = "VerseEditConfig",
     fn = function()
       local separator = vim.loop.os_uname().version:match "Windows" and "\\" or "/"
       local file_path = table.concat({vim.fn.stdpath("config"), "lua", "user_config.lua"}, separator)
       vim.cmd("e " .. file_path)
     end,
-  }
+  },
+
+  {
+    name = "VerseCheckUpdates",
+    fn = function()
+      require("verse.git"):check_for_updates()
+    end,
+  },
 }
 
 function M.load_commands(cmds)
