@@ -96,10 +96,10 @@ function Default:keybinds()
     ["<C-Q>"] = { "<C-w>q", "Quit current window" },
 
     -- Zoom
-    ["<C-Up>"] = { "<cmd>resize -2<cr>" },
-    ["<C-Down>"] = { "<cmd>resize +2<cr>" },
-    ["<C-Left>"] = { "<cmd>vertical resize -2<cr>" },
-    ["<C-Right>"] = { "<cmd>vertical resize +2<cr>" },
+    ["<C-Up>"] = { "<cmd>resize -2<cr>", "" },
+    ["<C-Down>"] = { "<cmd>resize +2<cr>", "" },
+    ["<C-Left>"] = { "<cmd>vertical resize -2<cr>", "" },
+    ["<C-Right>"] = { "<cmd>vertical resize +2<cr>", "" },
 
     -- Force
     ["<C-S>"] = { "<cmd>w!<cr>", "Force write" },
