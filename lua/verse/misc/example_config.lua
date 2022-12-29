@@ -8,8 +8,8 @@ My = {}
 --My.statusline = "bubble"
 
 -- Example keybinds
-My:keybinds() = {
-  -- ["<F2>"] = { "<cmd>NvimTreeToggle<cr>", "Toggle file tree" },
+My.keybinds = {
+  -- ["<leader>oo"] = { "<cmd>ShenzhenSolitaireNewGame<cr>", "OK" },
 }
 
 -- Example vim options

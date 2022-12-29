@@ -94,15 +94,13 @@ function M.update_verse(args)
     return
   end
 
-  require'verse.post_startup'.load()
-
   vim.schedule(function()
       if package.loaded["nvim-treesitter"] then
         vim.cmd [[ TSUpdateSync ]]
       end
   end)
 
-  vim.notify("Verse updated successfully!", vim.log.levels.INFO)
+  vim.notify("Verse updated successfully!\nPlease restart neovim to apply the update.", vim.log.levels.INFO)
 end
 
 

@@ -31,6 +31,6 @@ else
   local exists, wk = pcall(require, "which-key")
 
   if config.keybinds ~= nil and exists then
-    wk.register { config.keybinds() }
+    wk.register { config.keybinds }
   end
 end
