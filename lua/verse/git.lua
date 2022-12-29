@@ -94,6 +94,8 @@ function M.update_verse(args)
     return
   end
 
+  require'verse.post_startup'.load()
+
   vim.schedule(function()
       if package.loaded["nvim-treesitter"] then
         vim.cmd [[ TSUpdateSync ]]

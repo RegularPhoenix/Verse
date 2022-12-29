@@ -57,6 +57,7 @@ function Default:autocmds()
       autocmd!
       au BufReadPre * :COQnow -s
       au BufWritePost startup.lua source <afile> | PackerCompile
+      au VimEnter * lua require'verse.post_startup'.load()
     augroup END
   ]]
 end
