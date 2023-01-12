@@ -7,16 +7,11 @@ require("verse.misc.default_config"):main_options()
 require("verse.misc.default_config"):autocmds()
 require("verse.misc.default_config"):keybinds()
 
-local vl = vim.loop
-local fn = vim.fn
+local example_path = require("verse.misc_helper").concat_paths({vim.fn.stdpath("config"), "lua", "verse", "misc", "example_config.lua"})
 
-local separator = vl.os_uname().version:match "Windows" and "\\" or "/"
-local file_path = table.concat({vim.fn.stdpath("config"), "lua", "user_config.lua"}, separator)
-local example_path = table.concat({vim.fn.stdpath("config"), "lua", "verse", "misc", "example_config.lua"}, separator)
-
-if fn.empty(fn.glob(file_path)) > 0 then
+if not require("verse.misc_helper").user_config_exists() then
   print "User config not found, creating an example..."
-  vl.fs_copyfile(example_path, file_path)
+  vim.loop.fs_copyfile(example_path, file_path)
 else
   local config = require("user_config")
 

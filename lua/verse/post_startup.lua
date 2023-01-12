@@ -1,8 +1,7 @@
 local M = {}
 
 function M.check_plugins()
-  local present, _ = pcall(require, "packer")
-  if not present then return end
+  if packer_plugins == nil then return 0, {} end
 
   local plugins = require'verse.startup'.plugins
   local not_loaded = {}

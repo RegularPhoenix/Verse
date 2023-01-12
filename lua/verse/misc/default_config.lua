@@ -120,15 +120,28 @@ function Default:keybinds()
     ["<leader>tp"] = { "<cmd>TransparentToggle<cr>", "Toggle transparency" },
     ["<leader>tc"] = { "<cmd>Telescope colorscheme<cr>", "Change colorscheme" },
     ["<leader>td"] = { "<cmd>TodoTelescope<cr>", "Search TODO's" },
+    ["<leader>mp"] = { "<cmd>Mason<cr>", "Open protocol package manager (Mason)" },
   }
 
-  local yabs_exists, yabs = pcall(require, "yabs")
-  if yabs_exists then
+  -- Debug
+  local dap_exists, dap = pcall(require, "dap")
+  if dap_exists then
     wk.register {
-      ["<F5>"] = { function() yabs:run_task("run") end, "Run" },
-      ["<F6>"] = { function() yabs:run_task("build_and_run") end, "Build and run" },
+      ["<F5>"] = { function() dap.continue() end, "Start debug"},
+      ["<F9>"] = { function() dap.toggle_breakpoint() end, "Toggle breakpoint"},
+      ["<F10>"] = { function() dap.step_over() end, "Step over"},
+      ["<F11>"] = { function() dap.step_into() end, "Step into"},
     }
   end
+
+  -- WARNING: Deprecated
+  -- local yabs_exists, yabs = pcall(require, "yabs")
+  -- if yabs_exists then
+  --   wk.register {
+  --     ["<F5>"] = { function() yabs:run_task("run") end, "Run" },
+  --     ["<F6>"] = { function() yabs:run_task("build_and_run") end, "Build and run" },
+  --   }
+  -- end
 end
 
 return Default

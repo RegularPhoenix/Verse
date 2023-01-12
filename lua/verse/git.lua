@@ -53,6 +53,8 @@ function M.check_for_updates(args)
   local silent = args.silent or false
   local force = args.force or false
 
+  execute_git { args = { "remote", "update" } }
+
   local _, localc = execute_git { args = { "rev-parse", "@" } }
   local _, remotec = execute_git { args = { "rev-parse", "@{u}" } }
   local _, basec = execute_git { args = { "merge-base", "@", "@{u}" } }
@@ -127,6 +129,7 @@ local release_names_table = {
   ['0.1'] = "Apex",
   ['0.2'] = "Mimic",
   ['0.3'] = "Snowglobe",
+  ['0.4'] = "Kaspar",
 }
 
 function M.get_verse_release_name()

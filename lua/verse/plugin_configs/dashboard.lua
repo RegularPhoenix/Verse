@@ -1,17 +1,10 @@
 local M = {}
 
 function M.load()
-  local fn = vim.fn
-
-  local separator = vim.loop.os_uname().version:match "Windows" and "\\" or "/"
-  local file_path = table.concat({fn.stdpath("config"), "lua", "user_config.lua"}, separator)
-  local user_theme = "verse.themes.mimic"
-
-  if fn.empty(fn.glob(file_path)) <= 0 then
+  local user_theme = "verse.themes." .. require("verse.git").get_verse_release_name():lower()
+  if require("verse.misc_helper").user_config_exists() then
     user_theme = require("user_config").theme
-    if user_theme == nil then
-      user_theme = "verse.themes." .. require("verse.git").get_verse_release_name():lower()
-    else
+    if user_theme ~= nil then
       user_theme = "verse.themes." .. user_theme
     end
   end

@@ -19,6 +19,7 @@ M.plugins = {
   { 'sainnhe/everforest' },
   { 'glepnir/zephyr-nvim' },
   { 'liuchengxu/space-vim-dark' },
+  { 'EdenEast/nightfox.nvim' },
   -- Mimic themes
   { 'ofirgall/ofirkai.nvim' }, -- sublime
   { 'doums/darcula' }, -- pycharm
@@ -60,12 +61,6 @@ M.plugins = {
     'pianocomposer321/yabs.nvim',
     config = require('verse.plugin_configs.yabs').load,
   },
-  -- LSP
-  {
-    'neovim/nvim-lspconfig',
-    config = require('verse.plugin_configs.languageservers').load,
-  },
-  { 'Issafalcon/lsp-overloads.nvim' }, -- LSP for method overloads
   -- Package manager for tools (LSP, DAP, etc.)
   {
     'williamboman/mason.nvim',
@@ -75,6 +70,23 @@ M.plugins = {
     end,
     requires = { 'williamboman/mason-lspconfig.nvim' },
   },
+  -- DAP
+  {
+    'mfussenegger/nvim-dap',
+    config = require('verse.plugin_configs.languageservers').load_dap
+  },
+  -- DAP UI
+  {
+    'rcarriga/nvim-dap-ui',
+    requires = 'mfussenegger/nvim-dap',
+    config = require('verse.plugin_configs.dap-ui').load,
+  },
+  -- LSP
+  {
+    'neovim/nvim-lspconfig',
+    config = require('verse.plugin_configs.languageservers').load_lsp,
+  },
+  { 'Issafalcon/lsp-overloads.nvim' }, -- LSP for method overloads
   -- LSP load progress
   {
     'j-hui/fidget.nvim',
@@ -203,6 +215,7 @@ M.plugins = {
     config = function() require("todo-comments").setup() end,
   },
   { 'rcarriga/nvim-notify' }, -- Better notifications
+  -- nvim-dap nvim-dap-ui <-> Telescope-dap persistent-breakpoints todo-breakpoints | nvim-lightbulb lspkind
 }
 
 
@@ -231,6 +244,19 @@ function M.load()
 
     for _,v in ipairs(M.plugins) do
       use(v)
+    end
+
+    local fn = vim.fn
+    local vl = vim.loop
+    local separator = vl.os_uname().version:match "Windows" and "\\" or "/"
+    local file_path = table.concat({vim.fn.stdpath("config"), "lua", "user_config.lua"}, separator)
+
+    if require("verse.misc_helper").user_config_exists() then
+      local user_plugins = require("user_config").plugins
+
+      for _, v in pairs(user_plugins) do
+        use(v)
+      end
     end
 
     -- Bootstrap
