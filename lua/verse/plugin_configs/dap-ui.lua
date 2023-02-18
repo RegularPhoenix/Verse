@@ -16,7 +16,7 @@ function M.load()
 
       {
         elements = {
-          "repl"
+          "console",
         },
         size = 0.2,
         position = "bottom",

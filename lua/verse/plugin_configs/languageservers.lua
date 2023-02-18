@@ -22,7 +22,8 @@ end
 
 function M.load_dap()
   if require("verse.misc_helper").user_config_exists() then
-    require"user_config".dap(require'dap')
+    local mason_packages_path = require("verse.misc_helper").concat_paths({ vim.fn.stdpath'data', 'mason', 'packages' })
+    require"user_config".dap(require'dap', mason_packages_path)
   end
 end
 

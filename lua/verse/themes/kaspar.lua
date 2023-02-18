@@ -1,6 +1,10 @@
 ﻿Kaspar = {}
 
+Kaspar.type = 'doom'
+
 Kaspar.header = {
+  '',
+  '',
   '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠿⠿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⡿⢿⣷⡄⠀⠀⠀⠀',
   '⠀⠀⠀⠀⠀⠀⠀⢀⣠⣄⠀⠀⠀⢀⣀⣼⣿⠅⠀⣿⣗⠀⠀⠀⠀⠀⠀⠀⠀⠀⢺⣿⣄⣀⣿⡯⠀⠀⠀⠀',
   '⠀⠀⠀⠀⠀⠀⣰⣾⠟⢿⣷⣴⣾⠿⠟⠋⠉⠀⠀⣿⣗⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡿⠻⠻⠋⠀⠀⠀⠀⠀',
@@ -35,44 +39,44 @@ Kaspar.header = {
 Kaspar.center = {
   {
     icon = '#  ',
-    desc = 'Recently opened files                   ',
+    desc = 'Recently opened files                     ',
     action =  'Telescope oldfiles',
-    shortcut = 'SPACE F O',
+    key = 'SPACE F O',
   },
 
   {
     icon = '#  ',
-    desc = 'Browse files                            ',
+    desc = 'Browse files',
     action = 'Telescope find_files',
-    shortcut = 'SPACE F F'
+    key = 'SPACE F F',
   },
 
   {
     icon = '#  ',
-    desc = 'New file                                ',
-    shortcut = 'SPACE F N',
-    action = 'DashboardNewFile',
+    desc = 'New file',
+    key = 'SPACE F N',
+    action = 'enew',
   },
 
   {
     icon = '#  ',
-    desc = 'Change terminal color                   ',
-    shortcut = 'SPACE T C',
+    desc = 'Change terminal color',
+    key = 'SPACE T C',
     action = 'Telescope colorscheme',
   },
 
   {
     icon = '#  ',
-    desc = 'Manage protocols                        ',
-    shortcut = 'SPACE M P',
+    desc = 'Manage protocols',
+    key = 'SPACE M P',
     action = 'Mason',
   },
 
   {
     icon = '#  ',
-    desc = 'Terminate current session               ',
+    desc = 'Terminate current session',
     action = 'qa!',
-    shortcut = 'SPACE Q A',
+    key = 'SPACE Q A',
   },
 }
 
@@ -85,8 +89,10 @@ Kaspar.footer = {
 function Kaspar.opts()
   vim.cmd([[colorscheme carbonfox]])
   vim.cmd([[hi DashboardHeader guifg=#e0474c]])
-  vim.cmd([[hi DashboardCenter guifg=#e79556]])
+  vim.cmd([[hi DashboardIcon guifg=#efeb68]])
   vim.cmd([[hi DashboardShortCut guifg=#efeb68]])
+  vim.cmd([[hi DashboardDesc guifg=#efeb68]])
+  vim.cmd([[hi DashboardKey guifg=#efeb68]])
   vim.cmd([[hi DashboardFooter guifg=#f77479]])
 end
 

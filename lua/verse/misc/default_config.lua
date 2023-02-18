@@ -55,7 +55,7 @@ function Default:autocmds()
   vim.cmd [[
     augroup VerseDefaults
       autocmd!
-      au BufReadPre * :COQnow -s
+      au BufReadPre * :CocEnable
       au BufWritePost startup.lua source <afile> | PackerCompile
       au VimEnter * lua require'verse.post_startup'.load()
     augroup END
@@ -84,7 +84,7 @@ function Default:keybinds()
     -- Files
     ["<leader>f"] = {
       name = "Files",
-      n = { "<cmd>DashboardNewFile<cr>", "Create a new file" },
+      n = { "<cmd>enew<cr>", "Create a new file" },
       o = { "<cmd>Telescope oldfiles<cr>", "Open recent file" },
       f = { "<cmd>Telescope find_files<cr>", "Find file" },
     },
@@ -121,6 +121,8 @@ function Default:keybinds()
     ["<leader>tc"] = { "<cmd>Telescope colorscheme<cr>", "Change colorscheme" },
     ["<leader>td"] = { "<cmd>TodoTelescope<cr>", "Search TODO's" },
     ["<leader>mp"] = { "<cmd>Mason<cr>", "Open protocol package manager (Mason)" },
+
+    ["<CR>"] = { [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], "Coc" }
   }
 
   -- Debug
@@ -130,18 +132,17 @@ function Default:keybinds()
       ["<F5>"] = { function() dap.continue() end, "Start debug"},
       ["<F9>"] = { function() dap.toggle_breakpoint() end, "Toggle breakpoint"},
       ["<F10>"] = { function() dap.step_over() end, "Step over"},
-      ["<F11>"] = { function() dap.step_into() end, "Step into"},
+      ["<F22>"] = { function() dap.step_into() end, "Step into"},
     }
   end
 
-  -- WARNING: Deprecated
-  -- local yabs_exists, yabs = pcall(require, "yabs")
-  -- if yabs_exists then
-  --   wk.register {
-  --     ["<F5>"] = { function() yabs:run_task("run") end, "Run" },
-  --     ["<F6>"] = { function() yabs:run_task("build_and_run") end, "Build and run" },
-  --   }
-  -- end
+  local dapui_exists, dapui = pcall(require, "dapui")
+  if dapui_exists then
+    wk.register {
+      ["<F17>"] = { function() dapui.toggle() end, "Toggle DAP UI" },
+    }
+  end
+
 end
 
 return Default

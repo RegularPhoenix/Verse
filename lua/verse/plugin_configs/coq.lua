@@ -1,33 +1,9 @@
 local M = {}
 
 function M.load()
-	vim.g.coq_settings = {
-		clients = {
-			lsp = {
-				enabled = true,
-				weight_adjust = 1.9,
-			},
-			buffers = {
-				enabled = true,
-				weight_adjust = -1.9,
-			},
-			tree_sitter = {
-				enabled = false,
-			},
-			paths = {
-				preview_lines = 4,
-			}
-		},
-		display = {
-			preview = {
-				border = 'single',
-			},
-		},
-		keymap = {
-			recommended = false,
-			jump_to_mark = "<c-'><c-'>",
-		}
-	}
+	local keyset = vim.keymap.set
+	local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
+	keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
 end
 
 return M

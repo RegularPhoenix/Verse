@@ -1,6 +1,11 @@
 ﻿VS = {}
 
+VS.type ='doom'
+
 VS.header = {
+  '',
+  '',
+  '',
   '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⢦⡲⡤⡀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
   '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡔⡧⡳⣝⢮⡳⠨⡢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
   '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡰⣕⢝⢮⡫⡮⡳⡝⢌⢌⢊⠪⡢⡀⡀⠀⠀⠀⠀⠀⠀⠀',
@@ -30,6 +35,8 @@ VS.header = {
   '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠪⡪⡪⡪⡪⡪⡪⠊⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
   '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠊⠎⠊⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
   '',
+  '',
+  '',
 }
 
 VS.center = {
@@ -37,27 +44,27 @@ VS.center = {
     icon = '•  ',
     desc = 'Recently opened files                   ',
     action =  'Telescope oldfiles',
-    shortcut = 'SPACE F O',
+    key = 'SPACE F O',
   },
 
   {
     icon = '•  ',
     desc = 'Browse files                            ',
     action = 'Telescope find_files',
-    shortcut = 'SPACE F F'
+    key = 'SPACE F F',
   },
 
   {
     icon = '•  ',
     desc = 'New file                                ',
-    shortcut = 'SPACE F N',
-    action = 'DashboardNewFile',
+    key = 'SPACE F N',
+    action = 'enew',
   },
 
   {
     icon = '•  ',
     desc = 'Change terminal color                   ',
-    shortcut = 'SPACE T C',
+    key = 'SPACE T C',
     action = 'Telescope colorscheme',
   },
 
@@ -65,7 +72,7 @@ VS.center = {
     icon = '•  ',
     desc = 'Terminate current session               ',
     action = 'qa!',
-    shortcut = 'SPACE Q A',
+    key = 'SPACE Q A',
   },
 }
 

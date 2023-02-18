@@ -1,7 +1,7 @@
 My = {}
 
--- aperture, apex, mimic, mimic-atom, mimic-kate, mimic-pycharm, mimic-sublime, mimic-vs
---My.theme = "mimic"
+-- aperture, apex, mimic, mimic-atom, mimic-kate, mimic-pycharm, mimic-sublime, mimic-vs, kaspar, snowglobe
+--My.theme = "snowglobe"
 
 
 -- bubble, bubble2, evil_line, airline, airline_anim, vscode, basic, wind, airline_luffy
@@ -9,24 +9,50 @@ My = {}
 
 -- Example keybinds
 My.keybinds = {
-  -- ["<leader>oo"] = { "<cmd>ShenzhenSolitaireNewGame<cr>", "OK" },
+
+}
+
+My.lsp = {
+  -- Must be installed first (You can use mason tool manager for that)
+  --"pyright",
 }
 
 -- Example vim options
 function My:main_options()
-  --vim.o.expandtab = false
-  --vim.o.shiftwidth = 4
+
 end
 
 
 -- Example autocmds
 function My:autocmds()
-  --vim.cmd [[
-  --  augroup MyCommands
-  --  	autocmd!
-  --  	au VimEnter * :COQnow -s
-  --  augroup END
-  --]]
+  --vim.cmd [[augroup daprepl
+  --  autocmd FileType dap-repl set nobuflisted
+  --augroup end]]
 end
+
+
+function My.dap(dap, packages_path)
+  -- Must be installed first (You can use mason tool manager for that)
+  --dap.adapters.python = {
+  --  type = 'executable',
+  --  command = packages_path .. '/debugpy/venv/bin/python',
+  --  args = { '-m', 'debugpy.adapter' }
+  --}
+  --dap.configurations.python = {
+  --  {
+  --    type = 'python';
+  --    request = 'launch';
+  --    name = 'Launch file';
+  --    program = '${file}';
+  --    pythonPath = function()
+  --      return '/usr/bin/python'
+  --    end;
+  --  },
+  --}
+end
+
+My.plugins = {
+  -- { 'rktjmp/shenzhen-solitaire.nvim' },
+}
 
 return My

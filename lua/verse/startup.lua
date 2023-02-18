@@ -36,8 +36,8 @@ M.plugins = {
     'romgrk/barbar.nvim',
     requires = "nvim-tree/nvim-web-devicons",
     config = function() require('bufferline').setup {
-    icon_pinned = '',
-    icon_close_tab_modified = '',
+      icon_pinned = '',
+      icon_close_tab_modified = '',
     } end,
   },
   -- easier keybinds
@@ -100,9 +100,9 @@ M.plugins = {
   },
   -- Autocomplete
   {
-    'ms-jpq/coq_nvim',
+    'neoclide/coc.nvim',
+    branch = 'release',
     config = require('verse.plugin_configs.coq').load,
-    requires = { 'ms-jpq/coq.artifacts', branch = 'artifacts' },
   },
   -- Terminal windows manager
   {
@@ -208,13 +208,18 @@ M.plugins = {
     config = function() require("marks").setup() end,
   },
   { 'xiyaowong/link-visitor.nvim' }, -- Open links
-  { 'rktjmp/shenzhen-solitaire.nvim' }, -- Best plugin ever
   -- TODO comments
   {
     'folke/todo-comments.nvim',
     config = function() require("todo-comments").setup() end,
   },
-  { 'rcarriga/nvim-notify' }, -- Better notifications
+  {
+    'rcarriga/nvim-notify',
+    config = function() require'notify'.setup {
+      backgroud_colour = '#000000',
+    }
+    end,
+  }, -- Better notifications
   -- nvim-dap nvim-dap-ui <-> Telescope-dap persistent-breakpoints todo-breakpoints | nvim-lightbulb lspkind
 }
 

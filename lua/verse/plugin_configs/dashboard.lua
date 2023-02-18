@@ -1,26 +1,34 @@
 local M = {}
 
 function M.load()
-  local user_theme = "verse.themes." .. require("verse.git").get_verse_release_name():lower()
+  local user_theme = ""
   if require("verse.misc_helper").user_config_exists() then
     user_theme = require("user_config").theme
     if user_theme ~= nil then
       user_theme = "verse.themes." .. user_theme
+    else
+      user_theme = "verse.themes." .. require("verse.git").get_verse_release_name():lower()
     end
   end
-  
-  local theme = require(user_theme)
-  local header = theme.header
-  local center = theme.center
-  local footer = theme.footer
-  theme.opts()
+
+  local ltheme = require(user_theme)
+  local lheader = ltheme.header
+  local lcenter = ltheme.center
+  local lfooter = ltheme.footer
+  local ltype = ltheme.type
 
   local db = require('dashboard')
 
-  db.session_auto_save_on_exit = true
-  db.custom_header = header
-  db.custom_center = center
-  db.custom_footer = footer
+  db.setup {
+    theme = ltype,
+    config = {
+      header = lheader,
+      center = lcenter,
+      footer = lfooter,
+    }
+  }
+
+  ltheme.opts()
 end
 
 return M
