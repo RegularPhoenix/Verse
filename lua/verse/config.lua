@@ -8,6 +8,7 @@ require("verse.misc.default_config"):autocmds()
 require("verse.misc.default_config"):keybinds()
 
 local example_path = require("verse.misc_helper").concat_paths({vim.fn.stdpath("config"), "lua", "verse", "misc", "example_config.lua"})
+local file_path = require("verse.misc_helper").concat_paths({vim.fn.stdpath("config"), "lua", "user_config.lua"})
 
 if not require("verse.misc_helper").user_config_exists() then
   print "User config not found, creating an example..."
