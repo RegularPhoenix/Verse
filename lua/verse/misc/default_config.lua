@@ -62,6 +62,16 @@ function Default:autocmds()
   ]]
 end
 
+function _G.show_docs()
+  local cw = vim.fn.expand('<cword>')
+  if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
+    vim.api.nvim_command('h ' .. cw)
+  elseif vim.api.nvim_eval('coc#rpc#ready()') then
+    vim.fn.CocActionAsync('doHover')
+  else
+    vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
+  end
+end
 
 -- Default keybinds
 function Default:keybinds()
@@ -122,7 +132,19 @@ function Default:keybinds()
     ["<leader>td"] = { "<cmd>TodoTelescope<cr>", "Search TODO's" },
     ["<leader>mp"] = { "<cmd>Mason<cr>", "Open protocol package manager (Mason)" },
 
-    ["<CR>"] = { [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], "Coc" }
+    ["<C-A>"] = { "ggVG", "Select all" },
+    ["<M-Up>"] = { "ddkkp", "Move line up" },
+    ["<M-Down>"] = { "ddp", "Move line down" },
+
+    -- Coc actions
+    ["<leader>a"] = {
+      name = "Coc actions",
+      q = { [[<Plug>(coc-fix-current)]], "Apply quick fix" },
+      d = { "<cmd>lua _G.show_docs()<CR>", "Open documentation" },
+      r = { [[<Plug>(coc-rename)]], "Rename" },
+      f = { [[<Plug>(coc-format-selected)]], "Format selected code" },
+    },
+    ["<CR>"] = { [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], "Coc select completion" },
   }
 
   -- Debug

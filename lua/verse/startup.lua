@@ -36,8 +36,8 @@ M.plugins = {
     'romgrk/barbar.nvim',
     requires = "nvim-tree/nvim-web-devicons",
     config = function() require('bufferline').setup {
-      icon_pinned = '',
-      icon_close_tab_modified = '',
+      --icon_pinned = '',
+      --icon_close_tab_modified = '',
     } end,
   },
   -- easier keybinds
@@ -170,9 +170,6 @@ M.plugins = {
   -- Tranparent neovim
   {
     'xiyaowong/nvim-transparent',
-    config = function() require("transparent").setup {
-    enable = false,
-    } end,
   },
   -- Dim inactive code
   {
