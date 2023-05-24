@@ -144,8 +144,11 @@ function Default:keybinds()
       r = { [[<Plug>(coc-rename)]], "Rename" },
       f = { [[<Plug>(coc-format-selected)]], "Format selected code" },
     },
-    ["<CR>"] = { [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], "Coc select completion" },
   }
+
+  wk.register ({
+    ["<CR>"] = { [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], "Coc select completion" },
+  }, { mode = "i", expr = true })
 
   -- Debug
   local dap_exists, dap = pcall(require, "dap")
