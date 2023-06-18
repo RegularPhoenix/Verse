@@ -1,3 +1,4 @@
+
 local M = {}
 
 function M.load()
@@ -38,9 +39,9 @@ function M.load()
 			cmd = "trash-put",
 		},
 	}
-	
+
 	require("nvim-tree").setup(cfg)
-	
+
 	vim.api.nvim_create_autocmd("BufEnter", {
 		nested = true,
 		callback = function()
