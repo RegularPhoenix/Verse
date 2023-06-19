@@ -34,30 +34,37 @@ local function safe_deep_fetch()
 		return
 	end
 
-	-- git fetch --unshallow will cause an error on a complete clone
 	local fetch_mode = result[1] == "true" and "--unshallow" or "--all"
 	ret = execute_git({ args = { "fetch", fetch_mode } })
-	if ret ~= 0 then
+	if ret ~= 0 and error ~= nil then
 		print(
 			error(
-				fmt("Git fetch %s failed! Please pull the changes manually in %s"),
-				fetch_mode,
-				vim.fn.stdpath("config")
+				"Git fetch "
+				.. fetch_mode
+				..  " failed! Please pull the changes manually in "
+				.. vim.fn.stdpath("config")
 			)
 		)
+		return
+	elseif ret ~= 0 and error == nil then
+		vim.notify("Unknown error while executing git command!", vim.log.levels.ERROR)
 		return
 	end
 
 	if fetch_mode == "--unshallow" then
 		ret = execute_git({ args = { "remote", "set-branches", "origin", "*" } })
-		if ret ~= 0 then
+		if ret ~= 0 and error ~= nil then
 			print(
 				error(
-					fmt("Git fetch %s failed! Please pull the changes manually in %s"),
-					fetch_mode,
-					vim.fn.stdpath("config")
+					"Git fetch "
+					.. fetch_mode
+					..  " failed! Please pull the changes manually in "
+					.. vim.fn.stdpath("config")
 				)
 			)
+			return
+		elseif ret ~= 0 and error == nil then
+			vim.notify("Unknown error while executing git command!", vim.log.levels.ERROR)
 			return
 		end
 	end
@@ -137,6 +144,11 @@ function M.update_verse(args)
 	vim.notify("Verse updated successfully!\nPlease restart neovim to apply the update.", vim.log.levels.INFO)
 end
 
+local function get_branch_name()
+	local _, results = execute_git({ args = { "rev-parse", "--abbrev-ref", "HEAD" } })
+	return vim.F.if_nil(results[1], "")
+end
+
 local function get_latest_verse_tag()
 	local _, results = execute_git({ args = { "describe", "--tags", "--abbrev=0" } })
 	return vim.F.if_nil(results[1], "")
@@ -154,11 +166,13 @@ local function get_version_commit_count()
 	return total[1] - up_to_last_tag[1]
 end
 
+-- HACK: Is keeping this necessary?
 local release_names_table = {
 	["0.1"] = "Apex",
 	["0.2"] = "Mimic",
 	["0.3"] = "Snowglobe",
 	["0.4"] = "Kaspar",
+	["1.0"] = "Vortex"
 }
 
 function M.get_verse_release_name()
@@ -167,15 +181,25 @@ function M.get_verse_release_name()
 end
 
 function M.get_verse_full_release_name()
-	local full_tag = get_latest_verse_tag()
+	local full_tag = get_latest_verse_tag() -- Major, minor and patch.
 	local name = M.get_verse_release_name()
 	local commit_count = get_version_commit_count()
-	local _, count = string.gsub(full_tag, "%.", "")
+	local _, count = string.gsub(full_tag, "%.", "") -- if count is 1, then patch is 0
 
-	if count == 1 then
-		return "Verse " .. full_tag .. ".0." .. commit_count .. " -- " .. name
+	local branch_name = get_branch_name()
+
+	if branch_name == "dev" then
+		if count == 1 then
+			return "Verse " .. full_tag .. ".0-dev." .. commit_count .. " -- " .. name
+		else
+			return "Verse " .. full_tag .. "-dev." .. commit_count .. " -- " .. name
+		end
 	else
-		return "Verse " .. full_tag .. "." .. commit_count .. " -- " .. name
+		if count == 1 then
+			return "Verse " .. full_tag .. ".0" .. " -- " .. name
+		else
+			return "Verse " .. full_tag .. " -- " .. name
+		end
 	end
 end
 

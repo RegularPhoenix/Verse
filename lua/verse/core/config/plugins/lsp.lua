@@ -8,7 +8,11 @@ M.override_attach = function(client, bufnr)
 end
 
 function M.load()
-	-- TODO: Should I load anything?
+	require("neodev").setup()
+
+	for _, server in pairs(require("userconfig.verse").language_servers) do
+		require("lspconfig")[server].setup({ on_attach = M.override_attach })
+	end
 end
 
 return M

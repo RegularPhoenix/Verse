@@ -30,8 +30,39 @@ local header = {
 
 function M.opts()
 	local db = require("alpha.themes.dashboard")
-	db.section.header.val = header
-	db.section.buttons.val = {
+	local section = db.section
+	local config = db.config
+	local fortune = require("alpha.fortune")
+
+	if require("userconfig.verse").fortune then
+		config.layout = {
+			{ type = "padding", val = 2 },
+			section.header,
+			{ type = "padding", val = 2 },
+			section.buttons,
+			{
+				type = "text",
+				val = fortune,
+				opts = {
+					position = "center",
+					hl = "Comment",
+					hl_shortcut = "Comment",
+				},
+			}
+		}
+	else
+		config.layout = {
+			{ type = "padding", val = 2 },
+			section.header,
+			{ type = "padding", val = 2 },
+			section.buttons,
+			{ type = "padding", val = 1 },
+			section.footer
+		}
+	end
+
+	section.header.val = header
+	section.buttons.val = {
 		db.button("SPACE F O", "󰑥  Recent files", ":Telescope oldfiles <CR>"),
 		db.button("SPACE F F", "  Browse files", ":Telescope find_files <CR>"),
 		db.button("SPACE F N", "  New file", ":enew <CR>"),
@@ -52,19 +83,19 @@ function M.load(_, dashboard)
 			local ver = vim.fn.api_info().version
 			local stats = require('lazy').stats()
 			dashboard.section.footer.val = {
-				"",
-				"Loaded "
-					.. stats.count
-					.. " plugins in "
-					.. math.floor(stats.startuptime * 100 + 0.5) / 100
-					.. "ms",
+				--"Loaded "
+				--	.. stats.count
+				--	.. " plugins in "
+				--	.. math.floor(stats.startuptime * 100 + 0.5) / 100
+				--	.. "ms",
 				"Neovim "
 					.. ver.major
 					.. "."
 					.. ver.minor
 					.. "."
 					.. ver.patch
-					.. " | Verse 1.0.0-dev -- Vortex", --require("verse.git").get_verse_full_release_name()
+					.. " | "
+					.. require("verse.core.git").get_verse_full_release_name(),
 			}
 			pcall(vim.cmd.AlphaRedraw)
 		end

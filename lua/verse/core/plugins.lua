@@ -19,12 +19,14 @@ return {
 	},
 	{
 		"williamboman/mason.nvim", -- Manager for tools (LSP, DAP, Linters)
+		opts = { ensure_installed = require("userconfig.verse").language_servers },
 		config = function()
 			require("mason").setup()
 			require("mason-lspconfig").setup()
 		end,
 		dependencies = { "williamboman/mason-lspconfig.nvim" },
 	},
+	{ "jose-elias-alvarez/null-ls.nvim"} , -- Null language server
 
 	--Debug Adapter protocol--
 	{
@@ -82,6 +84,20 @@ return {
 		config = require("verse.core.config.plugins.discord-rp").load,
 	},
 	{ "SmiteshP/nvim-navbuddy" }, -- Breadcrumbs navigation
+	{
+		"nvim-neotest/neotest", -- Tests integration
+		dependencies = { "antoinemadec/FixCursorHold.nvim" },
+		config = function()
+			local test_runners = {}
+			for _, runner in pairs(require("userconfig.verse").test_runners) do
+				table.insert(test_runners, require(runner))
+			end
+
+			require("neotest").setup({
+				adapters = test_runners
+			})
+		end
+	},
 
 	--Style!--
 	{ "folke/tokyonight.nvim", priority = 1000 }, -- Colorscheme
@@ -176,8 +192,6 @@ return {
 	 TODO: Possible changes--
 	 + hentoast/marks.nvim
 	 + bochs/grapple.nvim
-	 + nvim-neotest/neotest
-	 + jose-elias-alvarez/null-ls
 	 neoclide/coc-nvim -?-> hrsh7th/nvim-cmp 
 	--]]
 }

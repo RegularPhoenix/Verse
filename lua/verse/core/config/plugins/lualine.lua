@@ -1,8 +1,8 @@
 local M = {}
 
 function M.load()
-	-- Eviline config for lualine
-	-- Author: shadmansaleh
+	-- Slightly modified lualine config 'Evilline' for Verse
+	-- Original author: shadmansaleh
 	-- Credit: glepnir
 	local lualine = require("lualine")
 

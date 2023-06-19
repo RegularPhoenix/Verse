@@ -26,7 +26,7 @@ end
 
 try_require("opts")
 
-local user_colorscheme = "tokyonight"
+local user_colorscheme = require("userconfig.verse").colorscheme
 local success = try_load(user_colorscheme) -- TODO: Change to user colorscheme
 
 require("verse.core.startup").load_plugins()
