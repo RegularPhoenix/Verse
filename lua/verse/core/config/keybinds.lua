@@ -48,13 +48,13 @@ wk.register({
 	["<leader>qq"] = { "<cmd>qa!<cr>", "Force exit" },
 
 	-- Tabs
-	["<leader>l"] = { "<cmd>BufferNext<cr>", "Switch to the next buffer" },
-	["<leader>h"] = { "<cmd>BufferPrevious<cr>", "Switch to the previous buffer" },
-	["<leader>c"] = { "<cmd>BufferClose<cr>", "Close current buffer" },
-	["<leader>>"] = { "<cmd>BufferMoveNext<cr>", "Move current buffer to the right" },
-	["<leader><"] = { "<cmd>BufferPrevious<cr>", "Move current buffer to the left" },
-	["<leader>pp"] = { "<cmd>BufferPick<cr>", "Pick the buffer" },
-	["<leader>pn"] = { "<cmd>BufferPin<cr>", "Pin the buffer" },
+	["<leader>l"] = { "<cmd>BufferLineCycleNext<cr>", "Switch to the next buffer" },
+	["<leader>h"] = { "<cmd>BufferLineCyclePrev<cr>", "Switch to the previous buffer" },
+	["<leader>c"] = { "<cmd>BufferLineCloseLeft<cr>", "Close current buffer" },
+	["<leader>>"] = { "<cmd>BufferLineMoveNext<cr>", "Move current buffer to the right" },
+	["<leader><"] = { "<cmd>BufferLineMovePrev<cr>", "Move current buffer to the left" },
+	["<leader>pp"] = { "<cmd>BufferLinePick<cr>", "Pick the buffer" },
+	["<leader>pn"] = { "<cmd>BufferLineTogglePin<cr>", "Pin the buffer" },
 
 	-- Other
 	["<Esc>"] = { "<cmd>noh<cr><esc>", "Escape & clear highlight" },
@@ -63,6 +63,7 @@ wk.register({
 	["<leader>tc"] = { "<cmd>Telescope colorscheme<cr>", "Change colorscheme" },
 	["<leader>td"] = { "<cmd>TodoTelescope<cr>", "Search TODO's" },
 	["<leader>mp"] = { "<cmd>Mason<cr>", "Open protocol package manager (Mason)" },
+	["<leader>ml"] = { "<cmd>Lazy<cr>", "Open plugin manager (Lazy.nvim)" },
 	["<leader>sh"] = { "<cmd>Telescope search_history<cr>", "View search history" },
 
 	["<C-A>"] = { "ggVG", "Select all" },
@@ -76,8 +77,8 @@ wk.register({
 		-- d, definition
 		-- D, declaration
 		-- I, implementation
-		-- l, lsp info
 		-- r, references
+		i = { "<cmd>LspInfo<cr>", "LSP Info" },
 		k = { "<cmd>lua _G.show_docs()<CR>", "Open documentation" },
 		n = { [[<Plug>(coc-rename)]], "Rename" },
 		f = { [[<Plug>(coc-format-selected)]], "Format selected code" },

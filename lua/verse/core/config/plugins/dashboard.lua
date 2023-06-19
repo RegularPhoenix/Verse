@@ -36,8 +36,8 @@ function M.opts()
 		db.button("SPACE F F", "  Browse files", ":Telescope find_files <CR>"),
 		db.button("SPACE F N", "  New file", ":enew <CR>"),
 		db.button("SPACE T C", "  Change colorscheme", ":Telescope colorscheme <CR>"),
-		db.button("SPACE M L", "𝓩  'Lazy' plugin manager", ":Lazy <CR>"),
-		db.button("SPACE M P", "  'Mason' tool manager", ":Mason <CR>"),
+		db.button("SPACE M L", "𝓩  \"Lazy.nvim\" plugin manager", ":Lazy <CR>"),
+		db.button("SPACE M P", "  \"Mason\" tool manager", ":Mason <CR>"),
 		db.button("SPACE Q A", "  Terminate current session", ":qa! <CR>"),
 	}
 	return db

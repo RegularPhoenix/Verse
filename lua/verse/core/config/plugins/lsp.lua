@@ -1,6 +1,6 @@
 local M = {}
 
-local override_attach = function(client, bufnr)
+M.override_attach = function(client, bufnr)
 	if client.server_capabilities.documentSymbolProvider then
 		require("nvim-navic").attach(client, bufnr)
 		require("nvim-navbuddy").attach(client, bufnr)
@@ -8,8 +8,7 @@ local override_attach = function(client, bufnr)
 end
 
 function M.load()
-	require("neodev").setup()
-	require("lspconfig")["lua_ls"].setup({ on_attach = override_attach })
+	-- TODO: Should I load anything?
 end
 
 return M
