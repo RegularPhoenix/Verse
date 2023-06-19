@@ -29,10 +29,7 @@ return {
 	{ "jose-elias-alvarez/null-ls.nvim"} , -- Null language server
 
 	--Debug Adapter protocol--
-	{
-		"mfussenegger/nvim-dap", -- DAP
-		config = require("verse.core.config.plugins.dap").load,
-	},
+	{ "mfussenegger/nvim-dap" }, -- DAP
 	{
 		"rcarriga/nvim-dap-ui", -- DAP UI
 		requires = "mfussenegger/nvim-dap",
@@ -40,8 +37,22 @@ return {
 	},
 
 	--Code completion--
-	{ "neoclide/coc.nvim", branch = "release" }, -- Code completion
+	{
+		"hrsh7th/nvim-cmp", -- Code completion
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"saadparwaiz1/cmp_luasnip"
+		},
+		config = require("verse.core.config.plugins.cmp").load
+	},
 	{ "tpope/vim-sleuth" }, -- Autoindent
+	{
+		"L3MON4D3/LuaSnip", -- Snippets
+		build = "make install_jsregexp"
+	},
 
 	--Vim improvement/tools--
 	{
@@ -60,7 +71,6 @@ return {
 			mode = "workspace_diagnostics",
 			use_diagnostic_signs = true,
 			auto_open = true,
-			auto_close = true,
 			height = 7,
 		},
 	},
@@ -78,12 +88,12 @@ return {
 			})
 		end,
 	},
-	{ "xiyaowong/link-visitor.nvim", lazy = true }, -- Open links
+	{ "xiyaowong/link-visitor.nvim", event = "VeryLazy" }, -- Open links
 	{
 		"andweeb/presence.nvim", -- Discord rich presence
 		config = require("verse.core.config.plugins.discord-rp").load,
 	},
-	{ "SmiteshP/nvim-navbuddy" }, -- Breadcrumbs navigation
+	{ "SmiteshP/nvim-navbuddy", event = "VeryLazy" }, -- Breadcrumbs navigation
 	{
 		"nvim-neotest/neotest", -- Tests integration
 		dependencies = { "antoinemadec/FixCursorHold.nvim" },
@@ -97,6 +107,17 @@ return {
 				adapters = test_runners
 			})
 		end
+	},
+	{
+		"kylechui/nvim-surround", -- Manage delimiter pairs
+		version = "*",
+		event = "VeryLazy",
+		config = function() require("nvim-surround").setup() end
+	},
+	{
+		"folke/persistence.nvim", -- Session manager
+		event = "BufReadPre",
+		opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp" } },
 	},
 
 	--Style!--
@@ -119,6 +140,7 @@ return {
 		version = "*",
 		config = function() require("bufferline").setup({ options = { separator_style = "slant" } }) end
 	},
+	{ "ojroques/nvim-bufdel" }, -- To compensate bufferline insability to close selected tab
 	{
 		"nvim-lualine/lualine.nvim", -- Lualine
 		config = require("verse.core.config.plugins.lualine").load,
@@ -172,7 +194,7 @@ return {
 	{ "stevearc/dressing.nvim" }, -- Better vim interface
 	{
 		"ziontee113/icon-picker.nvim", -- Icon picker
-		lazy = true,
+		event = "VeryLazy",
 		config = function()
 			require("icon-picker").setup({
 				disable_legacy_commands = true,
@@ -186,12 +208,6 @@ return {
 		end,
 	},
 	{ "SmiteshP/nvim-navic" },
-	{ "rbong/vim-flog" }
-
-	--[[
-	 TODO: Possible changes--
-	 + hentoast/marks.nvim
-	 + bochs/grapple.nvim
-	 neoclide/coc-nvim -?-> hrsh7th/nvim-cmp 
-	--]]
+	{ "rbong/vim-flog", event = "VeryLazy" }, -- Git graph
+	{ "folke/twilight.nvim", event = "VeryLazy" }, -- Dim inactive code
 }

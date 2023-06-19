@@ -44,7 +44,8 @@ if success ~= 0 then
 		success = try_load("tokyonight")
 
 		if not success then
-			vim.notify("Failed to load default colorscheme!", vim.log.levels.ERROR)
+			vim.notify("Failed to load default colorscheme (tokyonight)!", vim.log.levels.ERROR)
+		    vim.cmd("colorscheme habamax")
 		end
 	end
 end
@@ -62,3 +63,5 @@ else
 	try_require("keybinds")
 	try_require("autocmds")
 end
+
+require("verse.core.commands")

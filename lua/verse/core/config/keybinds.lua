@@ -50,7 +50,7 @@ wk.register({
 	-- Tabs
 	["<leader>l"] = { "<cmd>BufferLineCycleNext<cr>", "Switch to the next buffer" },
 	["<leader>h"] = { "<cmd>BufferLineCyclePrev<cr>", "Switch to the previous buffer" },
-	["<leader>c"] = { "<cmd>BufferLineCloseLeft<cr>", "Close current buffer" },
+	["<leader>c"] = { "<cmd>BufDel<cr>", "Close current buffer" },
 	["<leader>>"] = { "<cmd>BufferLineMoveNext<cr>", "Move current buffer to the right" },
 	["<leader><"] = { "<cmd>BufferLineMovePrev<cr>", "Move current buffer to the left" },
 	["<leader>pp"] = { "<cmd>BufferLinePick<cr>", "Pick the buffer" },
@@ -59,12 +59,13 @@ wk.register({
 	-- Other
 	["<Esc>"] = { "<cmd>noh<cr><esc>", "Escape & clear highlight" },
 	["<leader>tw"] = { "<cmd>Twilight<cr>", "Toggle Twilight" },
-	["<leader>tp"] = { "<cmd>TransparentToggle<cr>", "Toggle transparency" },
 	["<leader>tc"] = { "<cmd>Telescope colorscheme<cr>", "Change colorscheme" },
 	["<leader>td"] = { "<cmd>TodoTelescope<cr>", "Search TODO's" },
 	["<leader>mp"] = { "<cmd>Mason<cr>", "Open protocol package manager (Mason)" },
 	["<leader>ml"] = { "<cmd>Lazy<cr>", "Open plugin manager (Lazy.nvim)" },
 	["<leader>sh"] = { "<cmd>Telescope search_history<cr>", "View search history" },
+	["<leader>rl"] = { function ()require("persistence").load({ last = true }) end, "Restore latest session" },
+	["<leader>rd"] = { function ()require("persistence").load() end, "Restore session for the current directory" },
 
 	["<C-A>"] = { "ggVG", "Select all" },
 	["<M-Up>"] = { "ddkkp", "Move line up" },
@@ -73,24 +74,15 @@ wk.register({
 	-- LSP
 	["<leader>a"] = {
 		name = "LSP",
-		q = { [[<Plug>(coc-fix-current)]], "Apply quick fix" },
-		-- d, definition
-		-- D, declaration
-		-- I, implementation
-		-- r, references
 		i = { "<cmd>LspInfo<cr>", "LSP Info" },
-		k = { "<cmd>lua _G.show_docs()<CR>", "Open documentation" },
-		n = { [[<Plug>(coc-rename)]], "Rename" },
-		f = { [[<Plug>(coc-format-selected)]], "Format selected code" },
+		q = { function() vim.lsp.buf.code_action() end, "Code action" },
+		d = { "<cmd>Telescope lsp_definitions<cr>", "Goto definition" },
+		r = { "<cmd>Telescope lsp_references<cr>", "Browse references" },
+		D = { function() vim.lsp.buf.declaration() end, "Goto declaration" },
+		k = { function() vim.lsp.buf.signature_help() end, "Signature help" },
+		n = { function() vim.lsp.buf.rename() end, "Rename" },
 	},
 })
-
-wk.register({
-	["<CR>"] = {
-		[[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
-		"Coc select completion",
-	},
-}, { mode = "i", expr = true })
 
 -- Debug
 local dap_exists, dap = pcall(require, "dap")
