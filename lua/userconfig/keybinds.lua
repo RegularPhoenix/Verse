@@ -1,0 +1,2 @@
+-- User defined keybinds go here
+-- Keybinds and autocmds are loaded after plugins are loaded
