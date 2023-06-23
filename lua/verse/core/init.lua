@@ -20,20 +20,19 @@ local function try_require(module)
 	end
 end
 
-local function try_load(module)
-	local success, out = pcall(require, module)
-	if not success then
-		return 1
-	else
-		out.load()
+local function try_load_colorscheme(colorscheme)
+	local success, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
+	if success then
 		return 0
+	else
+		return 1
 	end
 end
 
 try_require("opts")
 
 local user_colorscheme = util.option_or_default("colorscheme", "tokyonight")
-local success = try_load(user_colorscheme)
+local success = try_load_colorscheme(user_colorscheme)
 
 require("verse.core.startup").load_plugins()
 
@@ -43,11 +42,11 @@ if exists then
 end
 
 if success ~= 0 then
-	success = try_load(user_colorscheme)
+	success = try_load_colorscheme(user_colorscheme)
 
 	if success ~= 0 then
 		vim.notify("Failed to load user colorscheme (" .. user_colorscheme .. "), falling back to tokyonight.", vim.log.levels.WARN)
-		success = try_load("tokyonight")
+		success = try_load_colorscheme("tokyonight")
 
 		if not success then
 			vim.notify("Failed to load default colorscheme (tokyonight)!", vim.log.levels.ERROR)
