@@ -19,12 +19,11 @@ return {
 	},
 	{
 		"williamboman/mason.nvim", -- Manager for tools (LSP, DAP, Linters)
-		opts = {
-			ensure_installed = require("verse.core.util").option_or_default("language_servers", {})
-		},
 		config = function()
 			require("mason").setup()
-			require("mason-lspconfig").setup()
+			require("mason-lspconfig").setup({
+				ensure_installed = require("verse.core.util").option_or_default("language_servers", {})
+			})
 		end,
 		dependencies = { "williamboman/mason-lspconfig.nvim" },
 	},
