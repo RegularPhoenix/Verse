@@ -34,7 +34,7 @@ function M.opts()
 	local config = db.config
 	local fortune = require("alpha.fortune")
 
-	if require("userconfig.verse").fortune then
+	if require("verse.core.util").option_or_default("fortune", true) then
 		config.layout = {
 			{ type = "padding", val = 2 },
 			section.header,

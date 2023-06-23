@@ -1,3 +1,5 @@
+local util = require("verse.core.util")
+
 local function try_require(module)
 	local success, _ = pcall(require, "verse.core.config." .. module)
 
@@ -6,10 +8,14 @@ local function try_require(module)
 		return 1
 	end
 
-	success, _ = pcall(require, "userconfig." .. module)
+	if util.path_exists(util.concat_paths({ vim.fn.stdpath("config"), "lua", "userconfig", module .. ".lua" })) then
+		success, _ = pcall(require, "userconfig." .. module)
 
-	if not success then
-		vim.notify("Failed to load user " .. module .. "! Check your config for errors.", vim.log.levels.WARN)
+		if not success then
+			vim.notify("Failed to load user " .. module .. "! Check your config for errors.", vim.log.levels.WARN)
+			return 1
+		end
+	else
 		return 1
 	end
 end
@@ -26,8 +32,8 @@ end
 
 try_require("opts")
 
-local user_colorscheme = require("userconfig.verse").colorscheme
-local success = try_load(user_colorscheme) -- TODO: Change to user colorscheme
+local user_colorscheme = util.option_or_default("colorscheme", "tokyonight")
+local success = try_load(user_colorscheme)
 
 require("verse.core.startup").load_plugins()
 
@@ -40,7 +46,7 @@ if success ~= 0 then
 	success = try_load(user_colorscheme)
 
 	if success ~= 0 then
-		vim.notify("Failed to load user colorscheme, falling back to tokyonight.", vim.log.levels.WARN)
+		vim.notify("Failed to load user colorscheme (" .. user_colorscheme .. "), falling back to tokyonight.", vim.log.levels.WARN)
 		success = try_load("tokyonight")
 
 		if not success then

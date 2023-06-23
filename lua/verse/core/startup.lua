@@ -15,10 +15,24 @@ function M.load_plugins()
 		})
 	end
 	vim.opt.rtp:prepend(lazypath)
-	require("lazy").setup({
-		{ import = "verse.core.plugins" },
-		{ import = "userconfig.plugins" }
-	})
+
+	local opts = {
+		{ import = "verse.core.plugins" }
+	}
+
+	local util = require("verse.core.util")
+	if util.path_exists(
+		util.concat_paths({
+			vim.fn.stdpath("config"),
+			"lua",
+			"userconfig",
+			"plugins"
+		})
+	) then
+		table.insert(opts, { import = "userconfig.plugins" })
+	end
+
+	require("lazy").setup(opts)
 end
 
 return M
