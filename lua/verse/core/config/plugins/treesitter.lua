@@ -2,6 +2,10 @@ local M = {}
 
 function M.load()
 	require("nvim-treesitter.configs").setup({
+		ensure_installed = require("verse.core.util").option_or_default("language_parsers", {
+			"vimdoc",
+			"gitcommit"
+		}),
 		highlight = {
 			enable = true,
 			additional_vim_regex_highlighting = false,

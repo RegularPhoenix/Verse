@@ -10,7 +10,7 @@ end
 function M.load()
 	require("neodev").setup()
 
-	for _, server in pairs(require("userconfig.verse").language_servers) do
+	for _, server in pairs(require("verse.core.util").option_or_default("language_servers" , {})) do
 		require("lspconfig")[server].setup({ on_attach = M.override_attach })
 	end
 end

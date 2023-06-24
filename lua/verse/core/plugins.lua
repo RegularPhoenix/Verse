@@ -19,10 +19,11 @@ return {
 	},
 	{
 		"williamboman/mason.nvim", -- Manager for tools (LSP, DAP, Linters)
-		opts = { ensure_installed = require("userconfig.verse").language_servers },
 		config = function()
 			require("mason").setup()
-			require("mason-lspconfig").setup()
+			require("mason-lspconfig").setup({
+				ensure_installed = require("verse.core.util").option_or_default("language_servers", {})
+			})
 		end,
 		dependencies = { "williamboman/mason-lspconfig.nvim" },
 	},
@@ -98,13 +99,16 @@ return {
 		"nvim-neotest/neotest", -- Tests integration
 		dependencies = { "antoinemadec/FixCursorHold.nvim" },
 		config = function()
-			local test_runners = {}
-			for _, runner in pairs(require("userconfig.verse").test_runners) do
-				table.insert(test_runners, require(runner))
+			local test_runners = require("verse.core.util").option_or_default("test_runners", {})
+
+			local adapters = {}
+
+			for _, runner in pairs(test_runners) do
+				table.insert(adapters, require(runner))
 			end
 
 			require("neotest").setup({
-				adapters = test_runners
+				adapters = adapters
 			})
 		end
 	},
