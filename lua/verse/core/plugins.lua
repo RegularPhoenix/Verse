@@ -157,7 +157,11 @@ return {
 		"j-hui/fidget.nvim", -- LSP Progress UI
 		tag = "legacy",
 		config = function()
-			require("fidget").setup()
+			require("fidget").setup({
+				text = {
+					spinner = "dots"
+				}
+			})
 		end,
 	},
 	{
@@ -169,7 +173,14 @@ return {
 	{
 		"levouh/tint.nvim", -- Dim inactive windows
 		config = function()
-			require("tint").setup({ tint = -50 })
+			require("tint").setup({
+				tint = -45,
+				saturation = 0.5,
+				highlight_ignore_patterns = {
+					"WinSeparator",
+					"Status.*"
+				}
+			})
 		end,
 	},
 	{
