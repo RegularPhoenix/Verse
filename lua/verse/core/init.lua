@@ -1,7 +1,7 @@
 local util = require("verse.core.util")
 
 local function try_require(module)
-	local success, _ = pcall(require, "verse.core.config." .. module)
+	local success, _ = pcall(require, "verse.config." .. module)
 
 	if not success then
 		vim.notify("Failed to load core " .. module, vim.log.levels.ERROR)
