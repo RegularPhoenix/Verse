@@ -15,7 +15,7 @@ return {
 	{ "folke/neodev.nvim" },
 	{
 		"neovim/nvim-lspconfig", -- LSP Config
-		config = require("verse.core.config.plugins.lsp").load,
+		config = require("verse.config.plugins.lsp").load,
 	},
 	{
 		"williamboman/mason.nvim", -- Manager for tools (LSP, DAP, Linters)
@@ -34,7 +34,7 @@ return {
 	{
 		"rcarriga/nvim-dap-ui", -- DAP UI
 		requires = "mfussenegger/nvim-dap",
-		config = require("verse.core.config.plugins.dap-ui").load,
+		config = require("verse.config.plugins.dap-ui").load,
 	},
 
 	--Code completion--
@@ -47,7 +47,7 @@ return {
 			"hrsh7th/cmp-cmdline",
 			"saadparwaiz1/cmp_luasnip"
 		},
-		config = require("verse.core.config.plugins.cmp").load
+		config = require("verse.config.plugins.cmp").load
 	},
 	{ "tpope/vim-sleuth" }, -- Autoindent
 	{
@@ -64,7 +64,7 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter", -- Improved code highlight
-		config = require("verse.core.config.plugins.treesitter").load,
+		config = require("verse.config.plugins.treesitter").load,
 	},
 	{
 		"folke/trouble.nvim", -- Error list
@@ -92,7 +92,7 @@ return {
 	{ "xiyaowong/link-visitor.nvim", event = "VeryLazy" }, -- Open links
 	{
 		"andweeb/presence.nvim", -- Discord rich presence
-		config = require("verse.core.config.plugins.discord-rp").load,
+		config = require("verse.config.plugins.discord-rp").load,
 	},
 	{ "SmiteshP/nvim-navbuddy", event = "VeryLazy" }, -- Breadcrumbs navigation
 	{
@@ -131,12 +131,12 @@ return {
 	{
 		"goolord/alpha-nvim", -- Dashboard
 		event = "VimEnter",
-		opts = require("verse.core.config.plugins.dashboard").opts,
-		config = require("verse.core.config.plugins.dashboard").load,
+		opts = require("verse.config.plugins.dashboard").opts,
+		config = require("verse.config.plugins.dashboard").load,
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim", -- Indentation helper
-		config = require("verse.core.config.plugins.indent-blankline").load,
+		config = require("verse.config.plugins.indent-blankline").load,
 	},
 	{
 		"akinsho/bufferline.nvim", -- Tabline
@@ -147,11 +147,11 @@ return {
 	{ "ojroques/nvim-bufdel" }, -- To compensate bufferline insability to close selected tab
 	{
 		"nvim-lualine/lualine.nvim", -- Lualine
-		config = require("verse.core.config.plugins.lualine").load,
+		config = require("verse.config.plugins.lualine").load,
 	},
 	{
 		"nvim-tree/nvim-tree.lua", -- File explorer
-		config = require("verse.core.config.plugins.nvim-tree").load,
+		config = require("verse.config.plugins.nvim-tree").load,
 	},
 	{
 		"j-hui/fidget.nvim", -- LSP Progress UI
