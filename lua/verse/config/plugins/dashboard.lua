@@ -67,7 +67,7 @@ function M.opts()
 		db.button("SPACE F N", "  New file", ":enew <CR>"),
 		db.button("SPACE F O", "󰦖  Recent files", ":Telescope oldfiles <CR>"),
 		db.button("SPACE R L", "󰑥  Restore latest session", ":lua require(\"persistence\").load({ last = true }) <CR>"),
-		db.button("SPACE M L", "𝓩  \"Lazy.nvim\" plugin manager", ":Lazy <CR>"),
+		db.button("SPACE M L", "󰒲  \"Lazy.nvim\" plugin manager", ":Lazy <CR>"),
 		db.button("SPACE M P", "  \"Mason\" tool manager", ":Mason <CR>"),
 		db.button("SPACE Q Q", "  Terminate current session", ":qa! <CR>"),
 	}
@@ -81,13 +81,7 @@ function M.load(_, dashboard)
 		pattern = "LazyVimStarted",
 		callback = function()
 			local ver = vim.fn.api_info().version
-			--local stats = require('lazy').stats()
 			dashboard.section.footer.val = {
-				--"Loaded "
-				--	.. stats.count
-				--	.. " plugins in "
-				--	.. math.floor(stats.startuptime * 100 + 0.5) / 100
-				--	.. "ms",
 				"Neovim "
 					.. ver.major
 					.. "."
