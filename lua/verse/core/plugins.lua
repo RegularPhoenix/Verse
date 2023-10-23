@@ -136,6 +136,7 @@ return {
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim", -- Indentation helper
+		main = "ibl",
 		config = require("verse.config.plugins.indent-blankline").load,
 	},
 	{
