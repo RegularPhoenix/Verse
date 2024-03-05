@@ -18,18 +18,33 @@ wk.register({
 	-- Git
 	["<leader>g"] = {
 		name = "Git",
-		b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle git line blame" },
+		l = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle git line blame" },
 		d = { "<cmd>Gitsigns diffthis<cr>", "View git diff" },
-		c = { "<cmd>Telescope git_commits<cr>", "View git commits" },
-		s = { "<cmd>Telescope git_status<cr>", "View git status" },
+		g = { "<cmd>Flog<cr>", "Open git graph" },
+		c = { "<cmd>Telescope git_commits<cr>", "View git commits (Telescope)" },
+		b = { "<cmd>Telescope git_branches<cr>", "View git branches (Telescope)" },
+		s = { "<cmd>Telescope git_status<cr>", "View git status (Telescope)" },
+		t = { "<cmd>Telescope git_stash<cr>", "View git stash (Telescope)" },
 	},
 
 	-- Files
 	["<leader>f"] = {
 		name = "Files",
 		n = { "<cmd>enew<cr>", "Create a new file" },
-		o = { "<cmd>Telescope oldfiles<cr>", "Open recent file" },
-		f = { "<cmd>Telescope find_files<cr>", "Find file" },
+		o = { "<cmd>Telescope oldfiles<cr>", "Open recent file (Telescope)" },
+		f = { "<cmd>Telescope find_files<cr>", "Find file (Telescope)" },
+	},
+
+	-- Buffer
+	["<leader>b"] = {
+		name = "Buffer",
+		l = { "<cmd>BufferLineCycleNext<cr>", "Switch to the next buffer" },
+		h = { "<cmd>BufferLineCyclePrev<cr>", "Switch to the previous buffer" },
+		c = { "<cmd>BufDel<cr>", "Close current buffer" },
+		[">"] = { "<cmd>BufferLineMoveNext<cr>", "Move current buffer to the right" },
+		["<"] = { "<cmd>BufferLineMovePrev<cr>", "Move current buffer to the left" },
+		p = { "<cmd>BufferLinePick<cr>", "Pick the buffer" },
+		n = { "<cmd>BufferLineTogglePin<cr>", "Pin the buffer" },
 	},
 
 	-- Window management
@@ -47,42 +62,44 @@ wk.register({
 	["<C-S>"] = { "<cmd>w!<cr>", "Force write" },
 	["<leader>qq"] = { "<cmd>qa!<cr>", "Force exit" },
 
-	-- Tabs
-	["<leader>l"] = { "<cmd>BufferLineCycleNext<cr>", "Switch to the next buffer" },
-	["<leader>h"] = { "<cmd>BufferLineCyclePrev<cr>", "Switch to the previous buffer" },
-	["<leader>c"] = { "<cmd>BufDel<cr>", "Close current buffer" },
-	["<leader>>"] = { "<cmd>BufferLineMoveNext<cr>", "Move current buffer to the right" },
-	["<leader><"] = { "<cmd>BufferLineMovePrev<cr>", "Move current buffer to the left" },
-	["<leader>pp"] = { "<cmd>BufferLinePick<cr>", "Pick the buffer" },
-	["<leader>pn"] = { "<cmd>BufferLineTogglePin<cr>", "Pin the buffer" },
-
 	-- Other
 	["<Esc>"] = { "<cmd>noh<cr><esc>", "Escape & clear highlight" },
+
 	["<leader>tw"] = { "<cmd>Twilight<cr>", "Toggle Twilight" },
-	["<leader>tc"] = { "<cmd>Telescope colorscheme<cr>", "Change colorscheme" },
-	["<leader>td"] = { "<cmd>TodoTelescope<cr>", "Search TODO's" },
+	["<leader>tc"] = { "<cmd>Telescope colorscheme<cr>", "Change colorscheme (Telescope)" },
+	["<leader>tm"] = { "<cmd>Telescope messages<cr>", "Change messages (Telescope)" },
+	["<leader>th"] = { "<cmd>Telescope search_history<cr>", "View search history (Telescope)" },
+	["<leader>td"] = { "<cmd>TodoTelescope<cr>", "Search TODO's (Telescope)" },
+
 	["<leader>mp"] = { "<cmd>Mason<cr>", "Open protocol package manager (Mason)" },
 	["<leader>ml"] = { "<cmd>Lazy<cr>", "Open plugin manager (Lazy.nvim)" },
-	["<leader>sh"] = { "<cmd>Telescope search_history<cr>", "View search history" },
-	["<leader>rl"] = { function ()require("persistence").load({ last = true }) end, "Restore latest session" },
-	["<leader>rd"] = { function ()require("persistence").load() end, "Restore session for the current directory" },
+
+	["<leader>rl"] = { function() require("persistence").load({ last = true }) end, "Restore latest session" },
+	["<leader>rd"] = { function() require("persistence").load() end, "Restore session for the current directory" },
+
+	["<leader>nv"] = { "<cmd>Navbuddy<cr>", "Breadcrumbs navigation" },
+
+	["<leader>c"] = { function() require("Comment.api").toggle.linewise.current() end, "Comment current line" },
 
 	["<C-A>"] = { "ggVG", "Select all" },
-	["<M-Up>"] = { "ddkkp", "Move line up" },
-	["<M-Down>"] = { "ddp", "Move line down" },
+	["<M-k>"] = { "ddkkp", "Move line up" },
+	["<M-j>"] = { "ddp", "Move line down" },
 
-	-- LSP
+	-- LSP actions
 	["<leader>a"] = {
-		name = "LSP",
+		name = "LSP Actions",
 		i = { "<cmd>LspInfo<cr>", "LSP Info" },
-		q = { function() vim.lsp.buf.code_action() end, "Code action" },
-		d = { "<cmd>Telescope lsp_definitions<cr>", "Goto definition" },
-		r = { "<cmd>Telescope lsp_references<cr>", "Browse references" },
-		D = { function() vim.lsp.buf.declaration() end, "Goto declaration" },
+		a = { function() vim.lsp.buf.code_action() end, "Code actions" },
+		d = { "<cmd>Telescope lsp_definitions<cr>", "Definitions (Telescope)" },
+		r = { "<cmd>Telescope lsp_references<cr>", "References (Telescope)" },
+		D = { function() vim.lsp.buf.declaration() end, "Declaration" },
 		k = { function() vim.lsp.buf.signature_help() end, "Signature help" },
+		h = { function() require("hover").hover() end, "Hover" },
 		n = { function() vim.lsp.buf.rename() end, "Rename" },
 	},
 })
+
+-- wk.register({ ["<leader>c"] = { function() require("Comment.api").toggle.linewise(vim.fn.visualmode()) end, "Comment current block" } }, { mode = "v" })
 
 -- Debug
 local dap_exists, dap = pcall(require, "dap")
