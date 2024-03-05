@@ -3,6 +3,8 @@ return {
 	{ "nvim-lua/plenary.nvim", lazy = true }, -- Library
 	{ "nvim-tree/nvim-web-devicons", lazy = true }, -- Icons
 	{ "MunifTanjim/nui.nvim", lazy = true }, -- Better UI
+	{ "nvim-telescope/telescope.nvim" }, -- Fuzzy finder
+	{ "nvim-telescope/telescope-file-browser.nvim" },
 	{
 		"lewis6991/gitsigns.nvim", -- Git integration
 		config = function()
@@ -27,7 +29,16 @@ return {
 		end,
 		dependencies = { "williamboman/mason-lspconfig.nvim" },
 	},
-	{ "jose-elias-alvarez/null-ls.nvim"} , -- Null language server
+	{
+		"lewis6991/hover.nvim",
+		config = function()
+			require("hover").setup({
+				init = function()
+					require("hover.providers.lsp")
+				end
+			})
+		end
+	},
 
 	--Debug Adapter protocol--
 	{ "mfussenegger/nvim-dap" }, -- DAP
@@ -45,7 +56,9 @@ return {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
-			"saadparwaiz1/cmp_luasnip"
+			"hrsh7th/cmp-nvim-lsp-signature-help",
+			"saadparwaiz1/cmp_luasnip",
+			"onsails/lspkind-nvim"
 		},
 		config = require("verse.config.plugins.cmp").load
 	},
@@ -89,12 +102,14 @@ return {
 			})
 		end,
 	},
-	{ "xiyaowong/link-visitor.nvim", event = "VeryLazy" }, -- Open links
 	{
 		"andweeb/presence.nvim", -- Discord rich presence
 		config = require("verse.config.plugins.discord-rp").load,
 	},
-	{ "SmiteshP/nvim-navbuddy", event = "VeryLazy" }, -- Breadcrumbs navigation
+	{
+		"SmiteshP/nvim-navbuddy", -- Breadcrumbs navigation
+		event = "VeryLazy"
+	},
 	{
 		"nvim-neotest/neotest", -- Tests integration
 		dependencies = { "antoinemadec/FixCursorHold.nvim" },
@@ -123,11 +138,13 @@ return {
 		event = "BufReadPre",
 		opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp" } },
 	},
+	{
+		"numToStr/Comment.nvim", -- Comment plugin
+		config = function() require("Comment").setup() end
+	},
 
 	--Style!--
 	{ "folke/tokyonight.nvim", priority = 1000 }, -- Colorscheme
-	{ "nvim-telescope/telescope.nvim" }, -- Fuzzy finder
-	{ "nvim-telescope/telescope-file-browser.nvim" },
 	{
 		"goolord/alpha-nvim", -- Dashboard
 		event = "VimEnter",
