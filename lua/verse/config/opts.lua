@@ -44,3 +44,9 @@ vim.g.maplocalleader = " "
 vim.g.cursorhold_updatetime = 1000
 vim.g.indentLine_fileTypeExclude = { "dashboard" }
 vim.g.better_whitespace_filetypes_blacklist = { "dashboard" }
+
+vim.api.nvim_set_hl(0, "BreakpointSetBG", { bg = "#762c2c" })
+vim.api.nvim_set_hl(0, "BreakpointActiveBG", { bg = "#c5c870" })
+
+vim.fn.sign_define('DapBreakpoint', {text='', texthl='DiagnosticError', linehl='BreakpointSetBG', numhl=''})
+vim.fn.sign_define('DapStopped', {text='󰜴', texthl='DiagnosticWarn', linehl='BreakpointActiveBG', numhl=''})
