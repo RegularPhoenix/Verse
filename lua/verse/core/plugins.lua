@@ -17,6 +17,7 @@ return {
 	{ "folke/neodev.nvim" },
 	{
 		"neovim/nvim-lspconfig", -- LSP Config
+		dependencies = { "Hoffs/omnisharp-extended-lsp.nvim" },
 		config = require("verse.config.plugins.lsp").load,
 	},
 	{
@@ -46,6 +47,7 @@ return {
 		"rcarriga/nvim-dap-ui", -- DAP UI
 		requires = "mfussenegger/nvim-dap",
 		config = require("verse.config.plugins.dap-ui").load,
+		dependencies = { "nvim-neotest/nvim-nio" },
 	},
 
 	--Code completion--
@@ -67,6 +69,16 @@ return {
 		"L3MON4D3/LuaSnip", -- Snippets
 		build = "make install_jsregexp"
 	},
+	{
+		"stevearc/conform.nvim", -- Formatter
+		config = function()
+			local formatters = require("verse.core.util").option_or_default("formatters", {})
+
+			require("conform").setup({
+				formatters_by_ft = formatters
+			})
+		end
+	},
 
 	--Vim improvement/tools--
 	{
@@ -84,8 +96,12 @@ return {
 		opts = {
 			mode = "workspace_diagnostics",
 			use_diagnostic_signs = true,
-			auto_open = true,
 			height = 7,
+			modes = {
+				diagnostics = {
+					auto_open = true,
+				}
+			}
 		},
 	},
 	{
@@ -126,6 +142,10 @@ return {
 				adapters = adapters
 			})
 		end
+	},
+	{
+		"kevinhwang91/nvim-ufo",
+		requires = "kevinhwang91/promise-async"
 	},
 	{
 		"kylechui/nvim-surround", -- Manage delimiter pairs
@@ -178,6 +198,11 @@ return {
 			require("fidget").setup({
 				text = {
 					spinner = "dots"
+				},
+				notification = {
+					window = {
+						winblend = 0
+					}
 				}
 			})
 		end,

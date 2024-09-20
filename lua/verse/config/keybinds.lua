@@ -19,12 +19,25 @@ wk.register({
 	["<leader>g"] = {
 		name = "Git",
 		l = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle git line blame" },
+		a = { "<cmd>Gitsigns stage_buffer<cr>", "Stage whole buffer" },
 		d = { "<cmd>Gitsigns diffthis<cr>", "View git diff" },
 		g = { "<cmd>Flog<cr>", "Open git graph" },
-		c = { "<cmd>Telescope git_commits<cr>", "View git commits (Telescope)" },
+		o = { "<cmd>Telescope git_commits<cr>", "View git log (Telescope)" },
 		b = { "<cmd>Telescope git_branches<cr>", "View git branches (Telescope)" },
 		s = { "<cmd>Telescope git_status<cr>", "View git status (Telescope)" },
 		t = { "<cmd>Telescope git_stash<cr>", "View git stash (Telescope)" },
+		c = { "<cmd>Git commit<cr>", "Commit staged" },
+	},
+
+	["<leader>h"] = {
+		name = "Git hunk actions",
+		p = { "<cmd>Gitsigns preview_hunk<cr>", "Preview git hunks" },
+		i = { "<cmd>Gitsigns preview_hunk_inline<cr>", "Preview git hunks inlined" },
+		l = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
+		h = { "<cmd>Gitsigns prev_hunk<cr>", "Previous hunk" },
+		s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage selected hunk" },
+		u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage selected hunk" },
+		r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset selected hunk" },
 	},
 
 	-- Files
@@ -90,7 +103,7 @@ wk.register({
 		name = "LSP Actions",
 		i = { "<cmd>LspInfo<cr>", "LSP Info" },
 		a = { function() vim.lsp.buf.code_action() end, "Code actions" },
-		d = { "<cmd>Telescope lsp_definitions<cr>", "Definitions (Telescope)" },
+		d = { function() vim.lsp.buf.definition() end, "Definitions (Telescope)" },
 		r = { "<cmd>Telescope lsp_references<cr>", "References (Telescope)" },
 		D = { function() vim.lsp.buf.declaration() end, "Declaration" },
 		k = { function() vim.lsp.buf.signature_help() end, "Signature help" },

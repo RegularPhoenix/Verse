@@ -170,7 +170,8 @@ function M.load()
 
 		sections = {
 			lualine_a = {
-				sections.datetime
+				sections.encoding,
+				sections.fileformat
 			},
 
 			lualine_b = {
@@ -193,8 +194,7 @@ function M.load()
 			},
 
 			lualine_z = {
-				sections.encoding,
-				sections.fileformat
+				sections.datetime
 			}
 		},
 	})
